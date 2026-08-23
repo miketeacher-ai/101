@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ela — 45-Day Sprint</title>
+<style>
+:root{--a:#047857;--a2:#34d399;--grad:linear-gradient(135deg,#047857,#34d399);--bg:#f2faf7;--c:#fff;--t:#132420;--m:#5f7c76;--l:#d8ebe8;--ok:#2e7d32;--w:#ef8f00;--bad:#c62828;--r:18px;--sh:0 1px 2px rgba(19,36,32,.06),0 8px 24px rgba(19,36,32,.05)}
+[data-theme=dark]{--bg:#191e1c;--c:#232e2b;--t:#dde6e2;--m:#9fb3ac;--l:#2e3d3a;--a:#8eb5a3;--a2:#6d9a89;--grad:linear-gradient(135deg,#9abfae,#7aa898);--sh:0 1px 3px rgba(0,0,0,.25),0 8px 20px rgba(0,0,0,.2);--ok:#8a9a7b;--w:#c2a87a;--bad:#c28a8a}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t);font-size:15.5px;line-height:1.5}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+:focus-visible{outline:3px solid var(--a);outline-offset:2px;border-radius:6px}
+.skip{position:absolute;left:-999px;background:var(--a);color:#fff;padding:8px 14px;z-index:99;border-radius:0 0 8px 0}
+.skip:focus{left:0;top:0}
+.app{display:grid;grid-template-columns:236px minmax(0,1fr)}
+.col{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:14px;padding:20px 16px;background:var(--c);border-right:1px solid var(--l)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800}
+.logo{width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center}
+.brand small{display:block;font-weight:600;color:var(--m);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
+.dc{background:var(--bg);border:1px solid var(--l);border-radius:13px;padding:12px 14px;text-align:center}
+.dc b{font-size:1.5rem;color:var(--a)}
+.dc span{display:block;font-size:.72rem;color:var(--m);letter-spacing:.04em}
+.hr{height:6px;border-radius:99px;background:var(--l);overflow:hidden;margin-top:8px}
+.hr>span{display:block;height:100%;width:0;background:var(--grad);border-radius:99px;transition:width .5s}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;text-decoration:none;color:var(--m);font-weight:600;font-size:.92rem;transition:.15s}
+.nav a svg{flex:none}
+.nav a:hover{color:var(--t);background:var(--bg)}
+.nav a.active{color:#fff;background:var(--grad)}
+.foot{margin-top:auto;display:flex;gap:8px}
+.chip{border:1px solid var(--l);background:var(--bg);border-radius:999px;padding:7px 12px;font-size:.8rem;font-weight:700;cursor:pointer;transition:.15s}
+.chip:hover{border-color:var(--a);color:var(--a)}
+.tbar{display:none}
+.tabbar{display:none}
+@media(max-width:959px){
+ .app{display:block}.col{display:none}
+ .tbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--c);border-bottom:1px solid var(--l)}
+ .tbar .daychip{margin-left:auto;font-weight:800;color:var(--a);font-size:.95rem}
+ .thair{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--l)}
+ .thair>span{display:block;height:100%;background:var(--grad);width:0}
+ .tg{display:flex;gap:6px}
+ .tabbar{position:fixed;bottom:0;left:0;right:0;z-index:60;display:flex;background:var(--c);border-top:1px solid var(--l);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+ .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:.66rem;font-weight:700;color:var(--m);text-decoration:none;border-radius:10px}
+ .tabbar a.active{color:var(--a)}
+ main{padding:18px 14px calc(84px + env(safe-area-inset-bottom))}
+}
+main{padding:26px clamp(16px,3.5vw,44px);max-width:1120px}
+.sec{margin-bottom:52px;scroll-margin-top:76px}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
+.ico{width:44px;height:44px;border-radius:13px;background:var(--grad);display:grid;place-items:center;flex:none}
+.ico svg{stroke:#fff}
+.sh h2{font-size:clamp(1.25rem,2.4vw,1.55rem)}
+.sh .sub{color:var(--m);font-size:.86rem}
+.pill{margin-left:auto;background:var(--c);border:1px solid var(--l);border-radius:999px;padding:6px 14px;font-weight:800;color:var(--a);font-size:.9rem;box-shadow:var(--sh)}
+.card{background:var(--c);border:1px solid var(--l);border-radius:var(--r);padding:16px;box-shadow:var(--sh)}
+.card h3{font-size:1rem;margin-bottom:10px}
+.hero{display:grid;grid-template-columns:minmax(260px,1.1fr) minmax(300px,1fr);gap:14px}
+@media(max-width:860px){.hero{grid-template-columns:1fr}}
+.grad{background:var(--grad);border:none;color:#fff}
+.grad .big{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;line-height:1}
+.grad .mut{opacity:.85;font-size:.85rem}
+.rings{display:flex;gap:10px;justify-content:space-around;align-items:center;flex-wrap:wrap}
+.rb{text-align:center}
+.rb svg{transform:rotate(-90deg)}
+.rb .lb{font-weight:800;margin-top:-46px;position:relative}
+.rb small{display:block;color:var(--m);font-weight:600;margin-top:22px;font-size:.78rem}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px}
+.tc .tag{font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--a)}
+.tc p{margin-top:6px;font-weight:700}
+.tc label{display:flex;gap:8px;align-items:flex-start;margin-top:8px;font-size:.88rem;cursor:pointer}
+.nstrip{display:flex;align-items:center;gap:12px;margin-top:14px;padding:12px 16px;border-radius:13px;background:var(--c);border:1px dashed var(--a);font-size:.9rem;flex-wrap:wrap}
+.nstrip b{color:var(--a)}
+.alist{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:14px}
+.alist label{display:flex;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--l);border-radius:11px;padding:9px 12px;font-size:.85rem;cursor:pointer}
+.alist label:has(input:checked){border-color:var(--ok);color:var(--ok)}
+.band{display:flex;flex-direction:column;gap:6px}
+.track{height:12px;border-radius:999px;background:var(--l);position:relative}
+.track>span{position:absolute;inset:0 auto 0 0;width:0;border-radius:999px;background:var(--grad)}
+.tick{position:absolute;top:-5px;width:2px;height:22px;background:var(--t);opacity:.6}
+.ticks{display:flex;justify-content:space-between;font-size:.74rem;color:var(--m)}
+.seg{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.seg button{border:1px solid var(--l);background:var(--c);border-radius:999px;padding:6px 13px;font-size:.8rem;font-weight:700;cursor:pointer;color:var(--m)}
+.seg button[aria-pressed=true]{background:var(--grad);color:#fff;border-color:transparent}
+.tasks{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:8px}
+.dcard{display:flex;gap:8px;align-items:flex-start;background:var(--bg);border:1px solid var(--l);border-left-width:4px;border-radius:11px;padding:9px 10px;font-size:.8rem;cursor:pointer}
+.dcard:hover{transform:translateY(-1px);box-shadow:var(--sh)}
+.dcard input{margin-top:2px}
+.dcard b{color:var(--a);min-width:30px}
+.dcard.mk{border-left-color:var(--w)}
+.dcard.ex{border-left-color:var(--bad)}
+.dcard.done{opacity:.55}
+.timer{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+#tface{font-variant-numeric:tabular-nums;font-size:1.7rem;font-weight:800;color:var(--a);min-width:96px}
+.rhy{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:14px}
+@media(max-width:640px){.rhy{grid-template-columns:repeat(4,1fr)}}
+.rc{border:1px solid var(--l);border-radius:10px;padding:7px 4px;text-align:center;font-size:.68rem;font-weight:700;color:var(--m);background:var(--bg)}
+.rc i{display:block;width:22px;height:4px;border-radius:99px;margin:5px auto 0}
+.i-m{background:var(--a)}.i-r{background:var(--w)}.i-x{background:#7c6ff0}.i-t{background:var(--bad)}
+.leg{display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.78rem;color:var(--m);margin-bottom:10px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:99px;margin-right:5px;vertical-align:middle}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(205px,1fr));gap:8px}
+.top{display:flex;justify-content:space-between;gap:8px;align-items:center;text-align:left;border:1px solid var(--l);background:var(--bg);border-radius:11px;padding:9px 11px;font-size:.8rem;cursor:pointer;font-weight:600}
+.top:hover{border-color:var(--a)}
+.top em{font-style:normal;font-size:.64rem;font-weight:800;padding:3px 8px;border-radius:99px;color:#fff}
+.top[data-s="0"]{border-left:5px solid var(--bad)}.top[data-s="0"] em{background:var(--bad)}
+.top[data-s="1"]{border-left:5px solid var(--w)}.top[data-s="1"] em{background:var(--w)}
+.top[data-s="2"]{border-left:5px solid var(--ok)}.top[data-s="2"] em{background:var(--ok)}
+.srow{display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-bottom:10px}
+.srow label{font-size:.76rem;font-weight:700;color:var(--m);display:flex;flex-direction:column;gap:4px}
+.srow input{width:92px;padding:7px 9px;border-radius:9px;border:1px solid var(--l);background:var(--bg)}
+canvas#chart{width:100%;height:230px;background:var(--bg);border:1px solid var(--l);border-radius:13px}
+.btn{border:none;background:var(--grad);color:#fff;font-weight:700;border-radius:999px;padding:9px 18px;cursor:pointer;font-size:.86rem}
+.btn:hover{filter:brightness(1.06)}
+.btn-g{border:1px solid var(--l);background:transparent;color:var(--t)}
+.btn-g:hover{border-color:var(--a);color:var(--a)}
+.step{display:flex;gap:0;margin-bottom:14px;flex-wrap:wrap}
+.stp{flex:1;min-width:150px;display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--l);background:var(--c);font-size:.82rem}
+.stp:first-child{border-radius:13px 0 0 13px}
+.stp:last-child{border-radius:0 13px 13px 0}
+.stp+.stp{border-left:none}
+.stp .n{width:26px;height:26px;border-radius:99px;background:var(--l);display:grid;place-items:center;font-weight:800;flex:none}
+.stp.now{outline:2px solid var(--a);outline-offset:-2px}
+.stp.now .n{background:var(--grad);color:#fff}
+.stp small{display:block;color:var(--m);font-size:.7rem}
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tabs button[aria-selected=true]{background:var(--grad);color:#fff;border-color:transparent}
+.cl{list-style:none}
+.cl li{margin:7px 0}
+.cl label{display:flex;gap:9px;align-items:flex-start;font-size:.88rem;cursor:pointer}
+.cl input:checked+span{text-decoration:line-through;opacity:.55}
+table.p{width:100%;border-collapse:collapse;font-size:.87rem}
+table.p th{text-align:left;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--m);padding:8px}
+table.p td{border-top:1px solid var(--l);padding:9px;vertical-align:middle}
+.ctg{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:12px}
+.ctg textarea{width:100%;min-height:74px;border-radius:11px;border:1px solid var(--l);background:var(--bg);padding:9px;resize:vertical}
+.wb{height:5px;border-radius:99px;background:var(--l);overflow:hidden;margin-top:6px}
+.wb>span{display:block;height:100%;width:0;background:var(--grad)}
+.wc{display:flex;justify-content:space-between;font-size:.73rem;color:var(--m);margin-top:4px}
+.wc.over{color:var(--bad);font-weight:700}
+.cds{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.cd{text-align:center}
+.cd .nm{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--m)}
+.cd b{display:block;font-size:1.15rem;color:var(--a);font-variant-numeric:tabular-nums;margin-top:4px}
+.cd .dt{font-size:.72rem;color:var(--m)}
+.badge{font-size:.66rem;font-weight:800;padding:3px 9px;border-radius:99px;color:#fff}
+.b-Reach{background:var(--bad)}.b-Match{background:var(--w)}.b-Safety{background:var(--ok)}
+select.st{padding:5px 8px;border-radius:8px;border:1px solid var(--l);background:var(--bg);font-size:.8rem}
+dialog{border:1px solid var(--l);border-radius:var(--r);max-width:720px;width:94%;background:var(--c);color:var(--t);padding:22px}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.cg{columns:2;gap:22px;font-size:.8rem}
+@media(max-width:620px){.cg{columns:1}}
+.cg h4{break-after:avoid;margin:10px 0 4px;color:var(--a);font-size:.82rem}
+.cg p{margin:3px 0;break-inside:avoid}
+footer{color:var(--m);font-size:.76rem;text-align:center;padding:26px 0 10px}
+@media print{
+ .col,.tbar,.tabbar,.nop,dialog{display:none!important}
+ .app{display:block}body,main{background:#fff;color:#000}
+ .card{box-shadow:none;border:1px solid #000}
+ .sec{page-break-inside:avoid}.tp{display:block!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#sprint">Skip to content</a>
+<div class="app">
+<aside class="col nop">
+ <div class="brand"><span class="logo">E</span><span>Ela<small>Econ &amp; Finance</small></span></div>
+ <div class="dc"><b id="sd">-</b><span id="sd2">AUG 24 - OCT 7 2026</span><div class="hr"><span id="sb"></span></div></div>
+ <nav class="nav" id="nav">
+  <a href="#sprint"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-8 9 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Sprint</a>
+  <a href="#ielts"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/></svg>IELTS</a>
+  <a href="#sat"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10m6 10V4m6 16v-7"/><path d="M3 20h18"/></svg>SAT</a>
+  <a href="#folio"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Portfolio</a>
+  <a href="#deads"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Deadlines</a>
+ </nav>
+ <div class="foot"><button class="chip" id="thB">Theme</button><button class="chip" id="lgB">TR</button></div>
+</aside>
+<header class="tbar nop">
+ <div class="brand"><span class="logo">E</span><span>Ela</span></div>
+ <span class="daychip" id="td">-</span>
+ <div class="tg"><button class="chip" id="thBM">&#9788;</button><button class="chip" id="lgBM">TR</button></div>
+ <span class="thair"><span id="thairF"></span></span>
+</header>
+<nav class="tabbar nop">
+ <a href="#sprint"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l9-8 9 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Sprint</a>
+ <a href="#ielts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/></svg>IELTS</a>
+ <a href="#sat"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10m6 10V4m6 16v-7"/><path d="M3 20h18"/></svg>SAT</a>
+ <a href="#folio"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Folio</a>
+ <a href="#deads"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Dates</a>
+</nav>
+<main>
+<section class="sec" id="sprint">
+ <div class="sh"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg></span><div><h2 data-i18n="sT">45-Day Sprint</h2><p class="sub">Foundation 1-7 &middot; Core 8-21 &middot; Integration 22-35 &middot; Polish 36-45</p></div><span class="pill" id="pSprint">0%</span></div>
+ <div class="hero">
+  <div class="card grad" style="display:flex;flex-direction:column;justify-content:center;gap:8px">
+   <div class="mut" data-i18n="today">TODAY</div>
+   <div class="big" id="hDay">Day -</div>
+   <div class="mut" id="hPhase">-</div>
+   <div class="mut" id="hDate"></div>
+  </div>
+  <div class="card">
+   <div class="rings">
+    <div class="rb"><svg width="104" height="104" viewBox="0 0 104 104"><circle cx="52" cy="52" r="43" fill="none" stroke="var(--l)" stroke-width="11"/><circle id="rA" cx="52" cy="52" r="43" fill="none" stroke="var(--a)" stroke-width="11" stroke-linecap="round" stroke-dasharray="270" stroke-dashoffset="270"/></svg><div class="lb" id="pA">0%</div><small data-i18n="all">Overall</small></div>
+    <div class="rb"><svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="27" fill="none" stroke="var(--l)" stroke-width="8"/><circle id="rI" cx="35" cy="35" r="27" fill="none" stroke="var(--a)" stroke-width="8" stroke-linecap="round" stroke-dasharray="170" stroke-dashoffset="170"/></svg><div class="lb" id="pI">0%</div><small>IELTS</small></div>
+    <div class="rb"><svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="27" fill="none" stroke="var(--l)" stroke-width="8"/><circle id="rS" cx="35" cy="35" r="27" fill="none" stroke="var(--a)" stroke-width="8" stroke-linecap="round" stroke-dasharray="170" stroke-dashoffset="170"/></svg><div class="lb" id="pS">0%</div><small>SAT</small></div>
+    <div class="rb"><svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="27" fill="none" stroke="var(--l)" stroke-width="8"/><circle id="rP" cx="35" cy="35" r="27" fill="none" stroke="var(--a)" stroke-width="8" stroke-linecap="round" stroke-dasharray="170" stroke-dashoffset="170"/></svg><div class="lb" id="pP">0%</div><small data-i18n="port">Folio</small></div>
+   </div>
+  </div>
+ </div>
+ <div class="tgrid" id="tCards"></div>
+ <div class="nstrip" id="nStrip"></div>
+ <div class="alist" id="aBox"></div>
+</section>
+<section class="sec" id="ielts">
+ <div class="sh"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/></svg></span><div><h2>IELTS</h2><p class="sub">Band 5.5 &rarr; 6.5 target (7.0 stretch) &middot; 2-3 hrs/day &middot; Exam Thu Oct 1, Ankara</p></div><span class="pill" id="pIelts">0%</span></div>
+ <div class="card band"><div class="ticks"><span>5.5 now</span><span>6.5 TARGET</span><span>7.0 stretch</span></div><div class="track"><span id="bF"></span><i class="tick" style="left:50%"></i></div></div>
+ <div class="seg nop" id="wSeg"><button data-w="1" aria-pressed="false">W1</button><button data-w="2" aria-pressed="false">W2</button><button data-w="3" aria-pressed="false">W3</button><button data-w="4" aria-pressed="false">W4</button><button data-w="5" aria-pressed="false">W5</button><button data-w="6" aria-pressed="false">W6</button><button data-w="all" aria-pressed="true" data-i18n="all">All</button></div>
+ <div class="tasks" id="iTasks"></div>
+ <div class="card timer nop" style="margin-top:14px"><b data-i18n="drill">Drill timer</b> <button class="chip" data-min="5">5m</button><button class="chip" data-min="10">10m</button><button class="chip" data-min="20">20m</button><button class="chip" data-min="60">60m</button> <span id="tface" aria-live="off">00:00</span> <button class="btn" id="tstart" data-i18n="start">Start</button> <button class="btn btn-g" id="treset" data-i18n="reset">Reset</button></div>
+</section>
+<section class="sec" id="sat">
+ <div class="sh"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10m6 10V4m6 16v-7"/><path d="M3 20h18"/></svg></span><div><h2>SAT</h2><p class="sub">Target 1250 realistic / 1400 stretch &middot; PTs Days 12&middot;22&middot;32&middot;39 &middot; Real SAT Oct 3</p></div><span class="pill" id="pSat">0%</span></div>
+ <div class="rhy"><div class="rc">MON<i class="i-m"></i>MATH</div><div class="rc">TUE<i class="i-r"></i>R+W</div><div class="rc">WED<i class="i-m"></i>MATH</div><div class="rc">THU<i class="i-r"></i>R+W</div><div class="rc">FRI<i class="i-m"></i>MATH</div><div class="rc">SAT<i class="i-x"></i>MIX</div><div class="rc">SUN<i class="i-t"></i>TEST</div></div>
+ <div class="leg"><span><i class="dot" style="background:var(--bad)"></i>weak</span><span><i class="dot" style="background:var(--w)"></i>mid</span><span><i class="dot" style="background:var(--ok)"></i>OK</span><span id="tally"></span></div>
+ <div class="mg" id="mGrid"></div>
+ <div class="card" style="margin-top:14px"><div class="srow nop"><label>PT1<input type="number" min="400" max="1600" step="10" data-sc="0"></label><label>PT2<input type="number" min="400" max="1600" step="10" data-sc="1"></label><label>PT3<input type="number" min="400" max="1600" step="10" data-sc="2"></label><label>PT4<input type="number" min="400" max="1600" step="10" data-sc="3"></label><button class="btn" id="plotBtn" data-i18n="plot">Plot</button></div><canvas id="chart" width="880" height="300" role="img" aria-label="Score trend"></canvas></div>
+ <div style="margin-top:12px" class="nop"><button class="btn btn-g" id="chB" data-i18n="cheat">Cheat sheet</button></div>
+</section>
+<section class="sec" id="folio">
+ <div class="sh"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><div><h2 data-i18n="portH">Portfolio</h2><p class="sub">Research Sprint &middot; Financial Literacy &middot; Essays &middot; 4-5 hrs/day</p></div><span class="pill" id="pPort">0%</span></div>
+ <div class="step" id="step"><div class="stp" data-p="0"><span class="n">1</span><span><b data-i18n="p1">Economic Research Sprint</b><small>Days 1-15</small></span></div><div class="stp" data-p="1"><span class="n">2</span><span><b data-i18n="p2">Financial Literacy Leadership</b><small>Days 16-30</small></span></div><div class="stp" data-p="2"><span class="n">3</span><span><b data-i18n="p3">Essays + Applications</b><small>Days 31-45</small></span></div></div>
+ <div class="tabs seg nop" id="phTabs"><button data-p="0" aria-selected="true" aria-pressed="true">P1</button><button data-p="1" aria-pressed="false">P2</button><button data-p="2" aria-pressed="false">P3</button></div>
+ <div class="card"><div class="tp" data-tp="0"><ul class="cl" id="cl0"></ul></div><div class="tp" data-tp="1" style="display:none"><ul class="cl" id="cl1"></ul></div><div class="tp" data-tp="2" style="display:none"><ul class="cl" id="cl2"></ul></div></div>
+ <div class="card" style="margin-top:14px"><h3 data-i18n="deliv">Deliverable tracker</h3><table class="p"><tbody id="dRows"></tbody></table></div>
+ <div class="card nop" style="margin-top:14px"><h3 data-i18n="counters">Essay word counters</h3><div class="ctg" id="ctrs"></div></div>
+</section>
+<section class="sec" id="deads">
+ <div class="sh"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><div><h2 data-i18n="deadH">Deadlines</h2><p class="sub">Live countdowns &middot; applications checklist &middot; university pipeline</p></div><span class="pill" id="pDead">-</span></div>
+ <div class="cds" id="cds"></div>
+ <div class="card" style="margin-top:14px"><h3 data-i18n="acheck">Applications checklist</h3><ul class="cl" id="acL"></ul></div>
+ <div class="seg nop" id="uSeg" style="margin-top:14px"><button data-f="all" aria-pressed="true" data-i18n="all">All 13</button><button data-f="Reach" aria-pressed="false" data-i18n="reach">Reach</button><button data-f="Match" aria-pressed="false" data-i18n="match">Match</button><button data-f="Safety" aria-pressed="false" data-i18n="safe">Safety</button></div>
+ <div class="card" style="padding:6px 14px"><table class="p"><thead><tr><th data-i18n="school">School</th><th data-i18n="tier">Tier</th><th>Deadline</th><th data-i18n="status">Status</th></tr></thead><tbody id="uRows"></tbody></table></div>
+</section>
+<footer>Start Mon Aug 24 2026 &middot; End Wed Oct 7 2026 &middot; saved locally (ELA_portal_v1)</footer>
+</main>
+</div>
+<dialog id="cheat"><h3 style="margin-bottom:12px" data-i18n="cheat">Cheat sheet</h3><div class="cg"><div><h4>Algebra &amp; functions</h4><p>slope m=(y2-y1)/(x2-x1) - y=mx+b</p><p>vertex x=-b/2a - y=a(x-h)^2+k</p><p>x=(-b&plusmn;&radic;(b&sup2;-4ac))/2a</p><p>f(x-h): right - f(x)+k: up</p><h4>Powers &amp; growth</h4><p>x^a&middot;x^b=x^(a+b) - (x^a)^b=x^(ab)</p><p>x^-n=1/x^n - x^(1/n)=n&radic;x</p><p>growth A=P(1+r)^t - decay A=P(1-r)^t</p><h4>Geometry</h4><p>(x-h)^2+(y-k)^2=r^2 - C=2&pi;r - A=&pi;r&sup2;</p><p>sector=(ang/360)&pi;r&sup2; - arc=(ang/360)2&pi;r</p><p>45-45-90: x,x,x&radic;2 - 30-60-90: x,x&radic;3,2x</p><p>sin=o/h cos=a/h tan=o/a</p></div><div><h4>Stats &amp; probability</h4><p>mean=sum/n - median=middle ordered</p><p>P(E)=fav/total - indep P(A&amp;B)=P(A)P(B)</p><p>P(A|B)=P(A&amp;B)/P(B) - at least one=1-P(none)</p><p>percent change=(new-old)/old&middot;100</p><h4>Grammar top rules</h4><p>1 SVA: strip prepositional phrases</p><p>2 pronouns match true antecedent</p><p>3 tense consistency unless time shifts</p><p>4 parallel structure in lists</p><p>5 modifiers touch what they modify</p><p>6 semicolon joins two complete clauses</p><p>7 colon follows complete sentence</p><p>8 dashes pair around interruptions</p><p>9 its=possessive / it's=it is</p><p>10 shortest grammatical answer wins</p></div></div><div style="margin-top:16px" class="nop"><button class="btn" onclick="document.getElementById('cheat').close()" data-i18n="close">Close</button></div></dialog>
+<script>
+"use strict";
+var START=new Date(2026,7,24),LS="ELA_portal_v1";
+var D={checks:{},mastery:{},scores:[null,null,null,null],texts:{},theme:null,lang:"en",ui:{week:"all",phase:0,uni:"all"},uniStatus:{}};
+var S=JSON.parse(JSON.stringify(D));
+function load(){try{var r=localStorage.getItem(LS);if(r){var p=JSON.parse(r);["checks","mastery","scores","texts","theme","lang","uniStatus"].forEach(function(k){if(p[k]!==undefined)S[k]=p[k];});if(p.ui)for(var k in p.ui)S.ui[k]=p.ui[k];}}catch(e){}}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}}
+var SK=["Listening","Reading","Writing","Speaking"],MK={7:1,14:1,21:1,28:1,35:1};
+var TP=["Linear equations & systems","Slope & intercepts","Inequalities","Systems word problems","Ratios, rates & proportions","Percents & percent change","Unit conversion","Scatterplots & line of best fit","Quadratics: factoring & vertex form","Function notation, composition & transformations","Polynomials & factoring","Exponent rules & radicals","Exponential growth & decay","Circle equations","Area & volume","Triangle similarity & SOHCAHTOA","Special right triangles","Circle arcs, sectors & tangents","Mean, median, mode & spread","Probability & conditional probability"];
+var UN=[["UChicago","Reach","Nov 1 ED / Jan 1 RD"],["Northwestern","Reach","Nov 1 ED / Jan 1 RD"],["Columbia","Reach","Jan 1 RD"],["Penn (Wharton)","Reach","Nov 1 ED / Jan 1 RD"],["Georgetown","Reach","EA Nov 1 / RD Jan 1"],["Boston College","Match","EA Nov 1 / RD Jan 1"],["Fordham","Match","EA Nov 1 / RD Jan 1"],["Bentley","Match","EA Nov 1 / RD Jan 1"],["Babson","Match","EA Nov 1"],["SMU Cox","Match","EA Dec 1 / RD Jan 15"],["Alabama Culverhouse","Safety","Fall priority"],["Ole Miss Business","Safety","Rolling"],["UT Dallas (AES)","Safety","AES fall priority"]];
+var AL=["Recommenders requested (Day 1)","IELTS booked (by Aug 25)","SAT registered (by Sep 18)","CSS Profile submitted (Oct 5)","ED applications submitted (Nov 1)"];
+var PT=[["Define narrow research question + abstract draft","Pull World Bank + IMF + TCMB series into repo","Clean data + chart sets A/B in Colab","2000-word paper draft -> revise -> SUBMIT by Day 15"],["Venue permission + recruit students; pilot Session 1","Sessions 2-4 delivered with pre-quizzes running","Session 5 + collect post-quizzes; 10 posts published","Impact report: attendance + quiz lift + quotes"],["Personal statement final (650w)","Five supplements: UChicago, Northwestern, Columbia, Penn Wharton, Boston College","Two scholarship essays final","Investment simulation log packaged; submissions sent"]];
+var DL=["Research paper submitted","GitHub repo public + clean","Workshops executed (30+ students)","Impact report written (40% lift)","All 8 essays polished"];
+var AC=["Recommendation letters requested (Day 1)","Transcripts ordered + translated","CSS Profile submitted by Oct 5","Test scores sent when released","Concord Review submission confirmed (Day 15)","ED/EA submissions sent Nov 1"];
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e;}
+function iL(d){if(d===39)return"EXAM DAY - computer-delivered IELTS Ankara";if(MK[d])return"MOCK TEST - full timed exam";return SK[(d-1)%4]+" + "+SK[d%4];}
+function sL(d){var w=d%7;if(w===0)w=7;if(d===41)return"REAL SAT DAY";if([12,22,32,39].indexOf(d)>=0)return"Practice Test + full review";if(w===1||w===3||w===5)return"Math block + timed set";if(w===2||w===4)return"Reading/Writing strategies";if(w===6)return"Mixed practice set";return"Error review + weak-topic redo";}
+function wOf(d){return Math.ceil(d/7);}
+function bTasks(){var b=document.getElementById("iTasks");for(var d=1;d<=45;d++){var c="dcard"+(MK[d]?" mk":"")+(d===39?" ex":"");var l=el("label",c);l.dataset.d=d;l.innerHTML='<input type="checkbox" data-k="ielts-'+d+'"><span><b>D'+d+"</b> "+iL(d)+"</span>";b.appendChild(l);}}
+function wWeek(){var w=S.ui.week;document.querySelectorAll("#iTasks .dcard").forEach(function(c){c.style.display=(w==="all"||String(wOf(+c.dataset.d))===w)?"":"none";});document.querySelectorAll("#wSeg button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.w===w));});}
+function bMas(){var m=document.getElementById("mGrid");TP.forEach(function(t,i){var b=el("button","top");b.type="button";b.dataset.i=i;b.dataset.s=S.mastery[i]||0;b.innerHTML="<span>"+t+'</span><em>'+["weak","mid","OK"][+b.dataset.s]+"</em>";b.addEventListener("click",function(){var s=(+this.dataset.s+1)%3;this.dataset.s=s;S.mastery[i]=s;save();this.querySelector("em").textContent=["weak","mid","OK"][s];refresh();});m.appendChild(b);});}
+function bPort(){PT.forEach(function(l,p){var u=document.getElementById("cl"+p);l.forEach(function(it,j){var li=el("li");li.innerHTML='<label><input type="checkbox" data-k="p'+(p+1)+"-"+j+'"><span>'+it+"</span></label>";u.appendChild(li);});});var tb=document.getElementById("dRows");DL.forEach(function(d,i){var tr=el("tr");tr.innerHTML='<td style="width:70%">'+d+'</td><td><input type="checkbox" data-k="del-'+i+'"></td>';tb.appendChild(tr);});}
+function bCtrs(){var df=[["Personal statement",650,"words"],["Supplement",250,"words"],["Scholarship essay",500,"words"],["Activity description",150,"chars"]];var c=document.getElementById("ctrs");df.forEach(function(d,i){var w=el("div","ctg-item");w.innerHTML="<b style='font-size:.83rem'>"+d[0]+'</b><textarea rows="3" data-tx="'+i+'"></textarea><div class="wb"><span data-bar="'+i+'"></span></div><div class="wc"><span data-wc="'+i+'">0 / '+d[1]+" "+d[2]+"</span></div>";c.appendChild(w);});function upd(i){var d=df[i],v=S.texts[i]||"",n=i===3?v.length:(v.trim()?v.trim().split(/\s+/).length:0);c.querySelector('[data-wc="'+i+'"]').textContent=n+" / "+d[1]+" "+d[2];c.querySelector('[data-bar="'+i+'"]').style.width=Math.min(100,n/d[1]*100)+"%";c.querySelector('[data-wc="'+i+'"]').className="wc"+(n>d[1]?" over":"");}["0","1","2","3"].forEach(function(i){var t=c.querySelector('[data-tx="'+i+'"]');if(S.texts[i])t.value=S.texts[i];c.addEventListener("input",function(e){if(e.target.dataset.tx!==undefined)upd(+e.target.dataset.tx);});upd(i);});}
+function bAl(){var a=document.getElementById("aBox");AL.forEach(function(t,i){var l=el("label");l.innerHTML='<input type="checkbox" data-k="al-'+i+'"><span>'+t+"</span>";a.appendChild(l);});}
+function bAC(){var u=document.getElementById("acL");AC.forEach(function(t,i){var li=el("li");li.innerHTML='<label><input type="checkbox" data-k="ac-'+i+'"><span>'+t+"</span></label>";u.appendChild(li);});}
+function bUni(f){var tb=document.getElementById("uRows");tb.innerHTML="";UN.forEach(function(u,i){if(f&&f!=="all"&&u[1]!==f)return;var st=S.uniStatus[i]||"Not started";var os=["Not started","Working","Submitted","Done"].map(function(o){return"<option"+(o===st?" selected":"")+">"+o+"</option>";}).join("");var tr=el("tr");tr.innerHTML="<td><b>"+u[0]+"</b></td><td><span class='badge b-"+u[1]+"'>"+u[1]+"</span></td><td>"+u[2]+'</td><td><select class="st" data-u="'+i+'">'+os+"</select></td>";tb.appendChild(tr);});document.querySelectorAll("#uSeg button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.f===(f||"all")));});}
+function bToday(){var s=dNow(),g=document.getElementById("tCards");g.innerHTML="";if(s.pre||s.post){g.innerHTML='<div class="card tc" style="grid-column:1/-1"><p>'+(s.pre?"Sprint starts Monday Aug 24 2026.":"Sprint complete - well done.")+"</p></div>";return;}var d=s.d,ph=d<=15?0:d<=30?1:2,pn=["P1 Economic Research Sprint","P2 Financial Literacy Leadership","P3 Essays + Applications"];var mk=function(tag,bd,key){var c=el("div","card tc");c.innerHTML='<span class="tag">'+tag+"</span><p>"+bd+"</p>";if(key)c.innerHTML+='<label><input type="checkbox" data-k="'+key+'"><span data-i18n="md">Mark done</span></label>';return c;};g.appendChild(mk("IELTS - Day "+d,iL(d),"ielts-"+d));g.appendChild(mk("SAT - Day "+d,sL(d)));var pc=el("div","card tc");pc.innerHTML='<span class="tag">PORTFOLIO - '+pn[ph]+"</span>";var u=el("ul","cl");PT[ph].slice(0,3).forEach(function(it,j){var li=el("li");li.innerHTML='<label><input type="checkbox" data-k="p'+(ph+1)+"-"+j+'"><span>'+it+"</span></label>";u.appendChild(li);});pc.appendChild(u);g.appendChild(pc);}
+function dNow(){var n=new Date();n.setHours(0,0,0,0);var df=Math.floor((n-START)/86400000)+1;if(df<1)return{d:0,pre:true};if(df>45)return{d:45,post:true};return{d:df};}
+function updCh(){var s=dNow(),tx=s.pre?("Starts in "+Math.ceil((START-new Date())/86400000)+"d"):s.post?"Complete":"Day "+s.d+" of 45";document.getElementById("sd").textContent=tx.replace("Starts in ","in ").replace("d","");document.getElementById("td").textContent=tx;document.getElementById("hDay").textContent=s.pre?"Pre-sprint":s.post?"Done":"Day "+s.d;document.getElementById("hPhase").textContent=s.pre?"Foundation begins Mon Aug 24":s.post?"45-day sprint finished":"Phase: "+(s.d<=15?"1 - Economic Research Sprint":s.d<=30?"2 - Financial Literacy Leadership":"3 - Essays + Applications");document.getElementById("hDate").textContent=new Date().toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"});document.querySelectorAll("#step .stp").forEach(function(st,idx){st.classList.toggle("now",!s.pre&&!s.post&&((s.d<=15&&idx===0)||(s.d>15&&s.d<=30&&idx===1)||(s.d>30&&idx===2)));});}
+function ring(id,p,c){var e=document.getElementById(id);if(e)e.style.strokeDashoffset=String(Math.round(c*(1-p)));}
+function refresh(){var done=0,tot=0,iT=0,iD=0,pT=0,pD=0,sD=0;document.querySelectorAll('input[type=checkbox][data-k]').forEach(function(c){var k=c.dataset.k;if(k.indexOf("ielts-")===0){iT++;tot++;}else if(k.indexOf("al-")===0||k.indexOf("ac-")===0){tot++;}else if(k.charAt(0)==="p"||k.indexOf("del-")===0){pT++;tot++;}if(S.checks[k]){c.checked=true;done++;if(k.indexOf("ielts-")===0)iD++;else if(k.charAt(0)==="p"||k.indexOf("del-")===0)pD++;}var dc=c.closest(".dcard");if(dc)dc.classList.toggle("done",!!S.checks[k]);});TP.forEach(function(_,i){if(S.mastery[i]===2)sD++;});function pct(a,b){return b?Math.round(a/b*100):0;}var all=pct(done,tot);["pA","pSprint"].forEach(function(id){document.getElementById(id).textContent=all+"%";});ring("rA",all/100,270);document.getElementById("pI").textContent=pct(iD,iT)+"%";document.getElementById("pIelts").textContent=pct(iD,iT)+"%";ring("rI",pct(iD,iT)/100,170);var sp=pct(sD,20);document.getElementById("pS").textContent=sp+"%";document.getElementById("pSat").textContent=sp+"%";ring("rS",sp/100,170);var pp=pct(pD,pT);document.getElementById("pP").textContent=pp+"%";document.getElementById("pPort").textContent=pp+"%";ring("rP",pp/100,170);document.getElementById("sb").style.width=all+"%";document.getElementById("thairF").style.width=all+"%";var t={0:0,1:0,2:0};TP.forEach(function(_,i){t[S.mastery[i]|0]++;});document.getElementById("tally").textContent=t[0]+" weak / "+t[1]+" mid / "+t[2]+" OK";}
+function wire(){document.body.addEventListener("change",function(e){var c=e.target;if(c.matches("input[type=checkbox][data-k]")){S.checks[c.dataset.k]=c.checked;save();refresh();}if(c.matches("select.st")){S.uniStatus[c.dataset.u]=c.value;save();}});}
+var TMR={left:0,int:null};function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
+function startT(){if(TMR.int){clearInterval(TMR.int);TMR.int=null;return;}if(TMR.left<=0)return;TMR.int=setInterval(function(){TMR.left--;document.getElementById("tface").textContent=fmt(TMR.left);if(TMR.left<=0){clearInterval(TMR.int);TMR.int=null;try{document.title="TIMER DONE - Ela";}catch(e){}};},1000);}
+function draw(){var cv=document.getElementById("chart"),ctx=cv.getContext("2d"),W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);function Y(v){return H-26-(v-800)/(1600-800)*(H-58);}ctx.font="11px system-ui";[[1500,"spec"],[1400,"stretch"],[1250,"target"]].forEach(function(r){ctx.strokeStyle="#9a8b80";ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(46,Y(r[0]));ctx.lineTo(W-8,Y(r[0]));ctx.stroke();ctx.setLineDash([]);ctx.fillStyle="#9a8b80";ctx.fillText(r[0]+" "+r[1],6,Y(r[0])+3);});ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--a").trim()||"#047857";ctx.lineWidth=2.5;ctx.lineJoin="round";ctx.beginPath();var st=false;S.scores.forEach(function(v,i){if(v==null)return;var x=90+i*((W-140)/3);if(!st){ctx.moveTo(x,Y(v));st=true;}else ctx.lineTo(x,Y(v));});ctx.stroke();S.scores.forEach(function(v,i){if(v==null)return;var x=90+i*((W-140)/3),y=Y(v);ctx.fillStyle=ctx.strokeStyle;ctx.beginPath();ctx.arc(x,y,5,0,7);ctx.fill();ctx.fillStyle="#9a8b80";ctx.fillText("PT"+(i+1),x-9,H-8);});}
+var TR={sT:"45 Gunlik Sprint",all:"Genel",today:"BUGUN",md:"Tamamla",drill:"Calisma zamani",start:"Baslat",reset:"Sifirla",plot:"Puani ciz",cheat:"Formul + dilbilgisi kagit",port:"Portfoy",p1:"Ekonomik Arastirma Sprinti",p2:"Finansal Okuryazarlik Liderligi",p3:"Denemeler + Basvurular",deliv:"Cikti takibi",counters:"Kelime sayaclar",deadH:"Son teslimler",acheck:"Basvuru kontrol listesi",reach:"Zor",match:"Uygun",safe:"Guvenli",school:"Okul",tier:"Seviye",status:"Durum",close:"Kapat"};
+function aLang(lg){S.lang=lg;save();document.documentElement.lang=lg==="tr"?"tr":"en";document.querySelectorAll("[data-i18n]").forEach(function(n){var k=n.getAttribute("data-i18n");if(lg==="tr"&&TR[k])n.textContent=TR[k];});document.getElementById("lgB").textContent=lg==="tr"?"EN":"TR";document.getElementById("lgBM").textContent=lg==="tr"?"EN":"TR";}
+function aTheme(){var t=S.theme||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);}
+function init(){load();aTheme();bTasks();bMas();bPort();bAl();bAC();bCtrs();bUni(S.ui.uni);wWeek();bToday();wire();document.querySelectorAll("#wSeg button").forEach(function(b){b.addEventListener("click",function(){S.ui.week=this.dataset.w;save();wWeek();});});document.querySelectorAll("#phTabs button").forEach(function(b){b.addEventListener("click",function(){S.ui.phase=+this.dataset.p;save();document.querySelectorAll("#phTabs button").forEach(function(x){x.setAttribute("aria-selected",String(+x.dataset.p===S.ui.phase));x.setAttribute("aria-pressed",String(+x.dataset.p===S.ui.phase));});document.querySelectorAll(".tp").forEach(function(p){p.style.display=(+p.dataset.tp===S.ui.phase)?"":"none";});});});document.querySelectorAll("#uSeg button").forEach(function(b){b.addEventListener("click",function(){S.ui.uni=this.dataset.f;save();bUni(this.dataset.f);});});function tgl(){var c=document.documentElement.getAttribute("data-theme");S.theme=c==="dark"?"light":"dark";save();aTheme();draw();}document.getElementById("thB").addEventListener("click",tgl);document.getElementById("thBM").addEventListener("click",tgl);document.getElementById("lgB").addEventListener("click",function(){aLang(S.lang==="en"?"tr":"en");});document.getElementById("lgBM").addEventListener("click",function(){aLang(S.lang==="en"?"tr":"en");});document.querySelectorAll(".timer [data-min]").forEach(function(b){b.addEventListener("click",function(){TMR.left=(+this.dataset.min)*60;document.getElementById("tface").textContent=fmt(TMR.left);});});document.getElementById("tstart").addEventListener("click",startT);document.getElementById("treset").addEventListener("click",function(){clearInterval(TMR.int);TMR.int=null;TMR.left=0;document.getElementById("tface").textContent="00:00";});document.getElementById("plotBtn").addEventListener("click",function(){document.querySelectorAll("[data-sc]").forEach(function(inp){var i=+inp.dataset.sc,v=inp.value;S.scores[i]=v?+v:null;});save();draw();refresh();});document.getElementById("chB").addEventListener("click",function(){document.getElementById("cheat").showModal();});[0,1,2,3].forEach(function(i){var inp=document.querySelector('[data-sc="'+i+'"]');if(inp&&S.scores[i]!=null)inp.value=S.scores[i];});setInterval(function(){var tg=[[2026,9,1,"IELTS EXAM","Thu Oct 1"],[2026,9,3,"REAL SAT","Sat Oct 3"],[2026,10,1,"ED / EA","Nov 1"],[2027,0,1,"RD","Jan 1"]],h="";tg.forEach(function(t){var ms=Math.max(0,new Date(t[0],t[1],t[2])-new Date()),dd=Math.floor(ms/86400000),hh=Math.floor(ms%86400000/3600000),mm=Math.floor(ms%3600000/60000),ss=Math.floor(ms%60000/1000);h+='<div class="cd card"><div class="nm">'+t[2]+"</div><b>"+dd+"d "+String(hh).padStart(2,"0")+"h "+String(mm).padStart(2,"0")+"m "+String(ss).padStart(2,"0")+"s</b><div class='dt'>"+t[3]+"</div></div>";});document.getElementById("cds").innerHTML=h;var nx=null,best=Infinity;tg.forEach(function(t){var m=new Date(t[0],t[1],t[2])-new Date();if(m>0&&m<best){best=m;nx=t;}});document.getElementById("nStrip").innerHTML=nx?("Next milestone: <b>"+nx[2]+"</b> - "+nx[3]+" - "+Math.ceil(best/86400000)+" days left"):"All milestones passed.";},1000);try{if("IntersectionObserver" in window){var links=document.querySelectorAll(".nav a,.tabbar a");var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)links.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+en.target.id);});});},{rootMargin:"-80px 0px -55% 0px"});["sprint","ielts","sat","folio","deads"].forEach(function(id){io.observe(document.getElementById(id));});}}catch(e){}window.addEventListener("beforeprint",function(){document.querySelectorAll(".tp").forEach(function(p){p.style.display="";});wWeek();});updCh();refresh();draw();aLang(S.lang||"en");}
+init();
+</script>
+</body>
+</html>

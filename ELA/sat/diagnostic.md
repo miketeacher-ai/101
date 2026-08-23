@@ -1,6 +1,6 @@
 # Day 1 Diagnostic Protocol
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Ela | **Major:** Economics & Finance | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 Goal: honest baseline + working error system.
 
@@ -27,8 +27,8 @@ Goal: honest baseline + working error system.
 
 ## Targets
 
-- Realistic: 1150 (+~200 over zero-baseline)
-- Stretch: 1300 — requires near-perfect on core 20 topics
+- Realistic: 1250 (+~200 over zero-baseline)
+- Stretch: 1400 — requires near-perfect on core 20 topics
 
 ## Checklist
 

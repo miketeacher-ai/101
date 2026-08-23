@@ -1,6 +1,6 @@
 # Top 20 Grammar Rules & Rhetoric Patterns
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Ela | **Major:** Economics & Finance | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 Each rule: name, rule, WRONG, RIGHT, trap.
 

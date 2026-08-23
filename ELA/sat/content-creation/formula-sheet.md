@@ -1,6 +1,6 @@
 # One-Page Formula & Rules Sheet
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Ela | **Major:** Economics & Finance | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 Print this. Bluebook provides a small reference, but speed comes from knowing these cold. Desmos allowed on all Math sections.
 

@@ -1,6 +1,6 @@
 # Rotating Practice Schedule (2 skills/day)
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Elfin | **Major:** Molecular Biology & Medicine | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 4-day cycle — all skills hit twice weekly. Weights shift to weak skills Week 3+.
 

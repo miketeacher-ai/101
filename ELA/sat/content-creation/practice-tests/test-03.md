@@ -1,6 +1,6 @@
 # Practice Test 03 (Condensed Simulation)
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Ela | **Major:** Economics & Finance | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 Condensed ~40%-scale: 40 Q, 55 min. FREE official tests in Bluebook/Khan Academy.
 

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAT Calculator — Scientific Tool + Desmos Guide</title>
+<style>
+:root{--a:#0e7c66;--bg:#f4f8f7;--c:#fff;--t:#12211e;--m:#5f7c76;--l:#d8e8e4;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#fff;color:var(--t);line-height:1.5}
+html[data-theme=dark] body{background:#121a19}
+.wrap{max-width:980px;margin:0 auto;padding:22px 16px 60px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.logo{width:40px;height:40px;border-radius:12px 12px 5px 12px;background:linear-gradient(135deg,#0e7c66,#2dd4bf);color:#fff;display:grid;place-items:center;font-weight:800}
+h1{font-size:1.25rem;color:var(--a)}
+.sub{color:var(--m);font-size:.85rem;width:100%}
+.grid{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:16px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--c);border:1px solid var(--l);border-radius:var(--r);padding:16px;box-shadow:0 1px 2px rgba(18,60,52,.08),0 10px 26px rgba(18,60,52,.10)}
+.panel h2{font-size:.95rem;color:var(--a);margin-bottom:10px}
+.disp{background:var(--bg);border:1px solid var(--l);border-radius:10px;padding:12px 14px;text-align:right;margin-bottom:10px;min-height:64px}
+.disp .expr{color:var(--m);font-size:.85rem;word-break:break-all;min-height:1.2em}
+.disp .out{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums;word-break:break-all}
+.keys{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.k{border:1px solid var(--l);background:var(--bg);border-radius:9px;padding:10px 2px;font-weight:700;font-size:.9rem;cursor:pointer}
+.k:active{transform:translateY(1px)}
+.k.fn{color:var(--a);font-size:.8rem}
+.k.eq{background:var(--a);border-color:var(--a);color:#fff}
+.mode{display:flex;gap:8px;align-items:center;margin-bottom:10px;font-size:.8rem;color:var(--m)}
+.mode button{border:1px solid var(--l);background:var(--c);border-radius:999px;padding:4px 12px;font-weight:700;cursor:pointer;font-size:.78rem}
+.mode button.on{background:var(--a);color:#fff;border-color:var(--a)}
+ul{margin:6px 0 10px 18px}
+li{margin:5px 0;font-size:.88rem}
+code{background:var(--bg);border:1px solid var(--l);border-radius:6px;padding:1px 6px;font-size:.82rem}
+table.f{width:100%;border-collapse:collapse;font-size:.84rem;margin-top:6px}
+table.f td{border-top:1px solid var(--l);padding:6px 8px}
+table.f td:first-child{font-weight:700;color:var(--a);white-space:nowrap}
+.hint{font-size:.8rem;color:var(--m);margin-top:8px}
+@media print{.keys,.disp,.mode,.nop{display:none!important}.panel{border:1px solid #bbb;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <span class="logo">ƒ</span>
+ <h1>SAT Calculator &amp; Desmos Guide</h1>
+ <div class="sub">Practice calculator for drills · Desmos is the real exam calculator — the moves below are what actually earn points</div>
+</header>
+<div class="grid">
+<div class="panel nop">
+ <h2>Scientific calculator</h2>
+ <div class="mode">Angle: <button id="deg" class="on">Degrees</button><button id="rad">Radians</button></div>
+ <div class="disp"><div class="expr" id="expr">&nbsp;</div><div class="out" id="out">0</div></div>
+ <div class="keys" id="keys"></div>
+ <div class="hint">Keyboard works too: digits, + − * / ( ) ^ % , letters for functions — sin( cos( tan( sqrt( log( ln( pi , Enter = , Esc clears.</div>
+</div>
+<div class="panel">
+ <h2>Desmos power moves (the exam calculator)</h2>
+ <ul>
+  <li><b>Slider-solve:</b> type the equation, tap the slider for the unknown, read the answer. Great for messy algebra.</li>
+  <li><b>System intersection:</b> plot both equations, tap the intersection — exact coordinates, zero arithmetic.</li>
+  <li><b>Quadratics:</b> read roots (x-axis crossings) and vertex directly; compare forms <code>a(x-h)²+k</code>.</li>
+  <li><b>Regression:</b> enter a table, then <code>y₁ ~ a x + b</code> — slope/intercept in seconds for line-of-best-fit questions.</li>
+  <li><b>Stats:</b> <code>mean(list)</code>, <code>median(list)</code>, <code>stdev(list)</code> on a defined list.</li>
+  <li><b>Verify algebra:</b> plot left side and right side as two functions — intersections are the solution set.</li>
+  <li><b>Mean-algebra check:</b> changing one value by d moves the mean by d/n — verify with a quick list.</li>
+ </ul>
+ <h2 style="margin-top:14px">Bluebook notes</h2>
+ <ul>
+  <li>Desmos is built into the exam Math modules — allowed on every question, including grid-ins.</li>
+  <li>Practice in Bluebook at least twice (PT1, PT3) so the interface is muscle memory.</li>
+  <li>Use this page's calculator only for paper drills; exam-day tool is always Desmos.</li>
+ </ul>
+ <h2 style="margin-top:14px">Formula quick reference (printable)</h2>
+ <table class="f">
+  <tr><td>Slope</td><td>m = (y₂−y₁)/(x₂−x₁) · y = mx + b</td></tr>
+  <tr><td>Vertex</td><td>x = −b/2a · y = a(x−h)² + k</td></tr>
+  <tr><td>Quadratic formula</td><td>x = (−b ± √(b²−4ac)) / 2a</td></tr>
+  <tr><td>Exponents</td><td>xᵃ·xᵇ = xᵃ⁺ᵇ · (xᵃ)ᵇ = xᵃᵇ · x⁻ⁿ = 1/xⁿ · x^(1/n) = ⁿ√x</td></tr>
+  <tr><td>Growth / decay</td><td>A = P(1+r)ᵗ / A = P(1−r)ᵗ</td></tr>
+  <tr><td>Circle</td><td>(x−h)²+(y−k)² = r² · C = 2πr · A = πr² · arc = (θ/360)2πr</td></tr>
+  <tr><td>Special triangles</td><td>45-45-90: x, x, x√2 · 30-60-90: x, x√3, 2x</td></tr>
+  <tr><td>Trig</td><td>sin = o/h · cos = a/h · tan = o/a · sinθ = cos(90°−θ)</td></tr>
+  <tr><td>Stats</td><td>mean = Σx/n · median = middle (ordered) · P(E) = fav/total · P(A|B) = P(A∩B)/P(B)</td></tr>
+  <tr><td>Percent change</td><td>(new−old)/old × 100 · chains multiply: +20% then −20% = 0.96</td></tr>
+ </table>
+</div>
+</div>
+</div>
+<script>
+"use strict";
+var expr="",deg=true,last=0;
+var KEYS=[["sin","fn"],["cos","fn"],["tan","fn"],["√","fn"],["^",""],
+["7",""],["8",""],["9",""],["÷",""],["(",""],
+["4",""],["5",""],["6",""],["×",""],[")",""],
+["1",""],["2",""],["3",""],["−",""],["π",""],
+["0",""],[".",""],["%",""],["ans","fn"],["C",""],
+["log","fn"],["ln","fn"],["e","fn"],["⌫",""],["=","eq"]];
+function render(){document.getElementById("expr").textContent=expr||"\u00a0";}
+function show(v){document.getElementById("out").textContent=v;}
+function toJS(s){return s.replace(/÷/g,"/").replace(/×/g,"*").replace(/−/g,"-").replace(/π/g,"PI").replace(/√/g,"sqrt").replace(/\^/g,"**").replace(/ans/g,"("+last+")").replace(/(\d)\s*(?=[a-z(])/g,"$1*");}
+function evaluate(){if(!expr)return;var js=toJS(expr);if(!/^[0-9+\-*/().,%\ssqrtincologaepPI]*$/.test(js)){show("Error");return;}
+ js=js.replace(/sin\(/g,deg?"SIN(":"Math.sin(").replace(/cos\(/g,deg?"COS(":"Math.cos(").replace(/tan\(/g,deg?"TAN(":"Math.tan(").replace(/sqrt\(/g,"Math.sqrt(").replace(/log\(/g,"Math.log10(").replace(/ln\(/g,"Math.log(").replace(/pi/gi,"Math.PI").replace(/e/g,"Math.E");
+ var D=Math.PI/180,K=deg?D:1,SIN=function(x){return Math.sin(x*K)},COS=function(x){return Math.cos(x*K)},TAN=function(x){return Math.tan(x*K)};
+ try{var v=Function("D","SIN","COS","TAN","return ("+js+")")(D,SIN,COS,TAN);if(typeof v!=="number"||!isFinite(v)){show("Error");return;}v=Math.round(v*1e10)/1e10;last=v;show(String(v));expr=String(v);}catch(e){show("Error");}}
+function press(k){
+ if(k==="C"){expr="";render();show("0");return;}
+ if(k==="⌫"){expr=expr.slice(0,-1);render();return;}
+ if(k==="="){evaluate();return;}
+ if(k==="sin"||k==="cos"||k==="tan"||k==="log"||k==="ln"){expr+=k+"(";render();return;}
+ if(k==="√"){expr+="√(";render();return;}
+ if(k==="ans"){expr+="ans";render();return;}
+ expr+=k;render();}
+var kc=document.getElementById("keys");KEYS.forEach(function(p){var b=document.createElement("button");b.className="k "+p[1];b.textContent=p[0];b.onclick=function(){press(p[0]);};kc.appendChild(b);});
+document.addEventListener("keydown",function(ev){if(ev.key==="Enter"){press("=");ev.preventDefault();}else if(ev.key==="Escape"){press("C");}else if(ev.key==="Backspace"){press("⌫");}else if(/^[0-9+\-*/().%^]$/.test(ev.key)){press(ev.key==="-"?"−":ev.key==="*"?"×":ev.key==="/"?"÷":ev.key);}else if(/^[a-z]$/i.test(ev.key)){expr+=ev.key.toLowerCase();render();}});
+document.getElementById("deg").onclick=function(){deg=true;this.classList.add("on");document.getElementById("rad").classList.remove("on");};
+document.getElementById("rad").onclick=function(){deg=false;this.classList.add("on");document.getElementById("deg").classList.remove("on");};
+</script>
+</body>
+</html>

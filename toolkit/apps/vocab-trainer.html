@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Trainer — IELTS + SAT</title>
+<style>
+:root{--a:#4f6df5;--bg:#f6f7fb;--c:#fff;--t:#1c2030;--m:#6a7186;--l:#e3e6f0;--ok:#2e7d32;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#fff;color:var(--t);line-height:1.5;min-height:100vh}
+html[data-theme=dark] body{background:#14151c}
+.wrap{max-width:760px;margin:0 auto;padding:22px 16px 60px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.logo{width:40px;height:40px;border-radius:12px 12px 5px 12px;background:linear-gradient(135deg,#4f6df5,#7b5cf0);color:#fff;display:grid;place-items:center;font-weight:800}
+h1{font-size:1.25rem;color:var(--a)}
+.sub{color:var(--m);font-size:.85rem;width:100%}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+select,.btn{border:1px solid var(--l);background:var(--c);border-radius:999px;padding:8px 14px;font-size:.85rem;font-weight:700;color:var(--t);cursor:pointer}
+.btn.pri{background:var(--a);border-color:var(--a);color:#fff}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:14px}
+.stat{background:var(--bg);border:1px solid var(--l);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-size:1.2rem;color:var(--a)}
+.stat span{font-size:.7rem;color:var(--m);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.card{background:var(--c);border:1px solid var(--l);border-radius:var(--r);padding:26px 22px;box-shadow:0 1px 2px rgba(30,35,80,.08),0 10px 26px rgba(30,35,80,.10);text-align:center;min-height:240px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.word{font-size:1.9rem;font-weight:800;letter-spacing:-.01em}
+.tag{font-size:.66rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--a)}
+.mean{font-size:1rem;color:var(--t)}
+.ex{font-size:.88rem;color:var(--m);font-style:italic}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.gbtn{border:1px solid var(--l);background:var(--c);border-radius:999px;padding:10px 20px;font-weight:800;font-size:.9rem;cursor:pointer}
+.gbtn.again{color:#c2347a;border-color:#eec3da}
+.gbtn.good{color:#1d6f42;border-color:#c4e2d1}
+.gbtn.easy{color:#1f5fd0;border-color:#c3d2f5}
+.opts{display:grid;gap:8px;margin-top:8px}
+.opt{text-align:left;border:1px solid var(--l);background:var(--bg);border-radius:10px;padding:11px 14px;font-size:.92rem;cursor:pointer}
+.opt:hover{border-color:var(--a)}
+.opt.right{border-color:var(--ok);background:#eef7ef;color:var(--ok);font-weight:700}
+.opt.wrong{border-color:#c2347a;background:#fbeef4;color:#c2347a}
+input.type{width:100%;border:1px solid var(--l);border-radius:10px;padding:11px 14px;font-size:1rem;background:var(--bg)}
+.msg{min-height:1.3em;font-weight:700;font-size:.92rem}
+.msg.ok{color:var(--ok)}.msg.no{color:#c2347a}
+footer{color:var(--m);font-size:.75rem;text-align:center;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <span class="logo">V</span>
+ <h1>Vocabulary Trainer</h1>
+ <div class="sub">Leitner spaced repetition · difficulty rises with the sprint — L2 unlocks Day 8, L3 unlocks Day 22</div>
+</header>
+<div class="bar">
+ <select id="exam"><option value="all">All exams</option><option value="ielts">IELTS</option><option value="sat">SAT</option></select>
+ <select id="tier"><option value="auto">Auto · by sprint day</option><option value="1">L1 · Foundation</option><option value="2">L2 · Core</option><option value="3">L3 · Advanced</option><option value="all">All levels</option></select>
+ <select id="mode"><option value="quiz">Quiz (choose meaning)</option><option value="flash">Flashcards (self-grade)</option><option value="type">Type the word</option></select>
+ <button class="btn pri" id="start">Study 10</button>
+</div>
+<div class="stats">
+ <div class="stat"><b id="sDue">0</b><span>Due now</span></div>
+ <div class="stat"><b id="sLearned">0</b><span>Box 4+</span></div>
+ <div class="stat"><b id="sSeen">0</b><span>Reviews</span></div>
+ <div class="stat"><b id="sStreak">0</b><span>Streak</span></div>
+ <div class="stat"><b id="sLevel">L1</b><span id="sDay">Day 1</span></div>
+</div>
+<div class="card" id="card"><div class="ex">Press “Study 10” to begin. 10 min/day: 10 new + 20 review.</div></div>
+</div>
+<script>
+"use strict";
+var WORDS=[
+ {w:"increase",m:"to become larger in amount",e:"costs continued to increase",x:"ielts",t:"core"},
+ {w:"reduce",m:"to make smaller or less",e:"reduce traffic congestion",x:"ielts",t:"core"},
+ {w:"improve",m:"to make or become better",e:"improve public transport",x:"ielts",t:"core"},
+ {w:"affect",m:"to influence or have an impact on",e:"pollution affects health",x:"ielts",t:"core"},
+ {w:"government",m:"the group that governs a country",e:"government investment in housing",x:"ielts",t:"core"},
+ {w:"community",m:"people living in one area",e:"the local community benefits",x:"ielts",t:"core"},
+ {w:"research",m:"systematic investigation",e:"research suggests otherwise",x:"ielts",t:"core"},
+ {w:"provide",m:"to make available",e:"provide access to education",x:"ielts",t:"core"},
+ {w:"substantial",m:"large in amount or degree",e:"a substantial improvement in band scores",x:"ielts",t:"mid"},
+ {w:"detrimental",m:"harmful, damaging",e:"detrimental to health",x:"ielts",t:"mid"},
+ {w:"implement",m:"put a plan or policy into action",e:"implement a congestion charge",x:"ielts",t:"mid"},
+ {w:"accessible",m:"easy to reach, enter, or use",e:"education accessible to everyone",x:"ielts",t:"mid"},
+ {w:"sustainable",m:"able to continue without harming the future",e:"sustainable urban growth",x:"ielts",t:"mid"},
+ {w:"barrier",m:"obstacle that prevents progress",e:"cost is the main barrier to entry",x:"ielts",t:"mid"},
+ {w:"consequence",m:"a result of an action",e:"unintended consequences of the policy",x:"ielts",t:"mid"},
+ {w:"exacerbate",m:"make a problem worse",e:"unregulated growth exacerbates inequality",x:"ielts",t:"adv"},
+ {w:"mitigate",m:"make less severe",e:"green corridors mitigate the heat-island effect",x:"ielts",t:"adv"},
+ {w:"unprecedented",m:"never having happened before",e:"unprecedented demand for housing",x:"ielts",t:"adv"},
+ {w:"underpin",m:"form the basis or foundation of",e:"small businesses underpin the urban economy",x:"ielts",t:"adv"},
+ {w:"pervasive",m:"spreading widely throughout",e:"the pervasive influence of advertising",x:"ielts",t:"adv"},
+ {w:"disparity",m:"a big difference between groups",e:"a stark disparity between districts",x:"ielts",t:"adv"},
+ {w:"foster",m:"encourage the development of",e:"mixed-use districts foster creativity",x:"ielts",t:"adv"},
+ {w:"paramount",m:"most important",e:"of paramount importance",x:"ielts",t:"adv"},
+ {w:"viable",m:"workable, capable of succeeding",e:"an economically viable alternative",x:"ielts",t:"adv"},
+ {w:"corroborate",m:"confirm with supporting evidence",e:"corroborating records settled the dispute",x:"sat",t:"core"},
+ {w:"substantiate",m:"support a claim with evidence",e:"only one study substantiated the claim",x:"sat",t:"core"},
+ {w:"refute",m:"prove wrong",e:"the data refutes the earlier model",x:"sat",t:"core"},
+ {w:"undermine",m:"weaken gradually",e:"errors undermine the argument",x:"sat",t:"core"},
+ {w:"ambiguous",m:"open to more than one meaning",e:"an ambiguous clause in the contract",x:"sat",t:"core"},
+ {w:"skeptical",m:"doubting, not easily convinced",e:"skeptical of the headline figure",x:"sat",t:"core"},
+ {w:"pragmatic",m:"practical rather than idealistic",e:"a pragmatic fix beat the elegant one",x:"sat",t:"core"},
+ {w:"nuanced",m:"showing small but important differences",e:"a nuanced reading of the results",x:"sat",t:"core"},
+ {w:"equivocal",m:"unclear, open to interpretation",e:"the results remained equivocal",x:"sat",t:"adv"},
+ {w:"spurious",m:"false, not genuine",e:"a spurious correlation",x:"sat",t:"adv"},
+ {w:"tenuous",m:"weak, flimsy",e:"a tenuous connection between events",x:"sat",t:"adv"},
+ {w:"circumspect",m:"cautious and thoughtful",e:"circumspect investors avoided the bubble",x:"sat",t:"adv"},
+ {w:"dogmatic",m:"stubbornly asserting opinions",e:"dogmatic claims rarely survive review",x:"sat",t:"adv"},
+ {w:"salient",m:"most noticeable or important",e:"the salient finding was the age gap",x:"sat",t:"adv"},
+ {w:"conflate",m:"wrongly merge two ideas",e:"the article conflates correlation with cause",x:"sat",t:"adv"},
+ {w:"arbitrary",m:"based on random choice, not reason",e:"an arbitrary deadline",x:"sat",t:"adv"}
+];
+var LS="toolkit_vocab_v1",S={boxes:{},seen:0,streak:0},queue=[],cur=null,phase=0;
+var START=new Date(2026,7,24);
+function levelOf(w){return w.t==="core"?1:w.t==="mid"?2:3;}
+function sprintDay(){var n=new Date();n.setHours(0,0,0,0);return Math.max(1,Math.min(45,Math.floor((n-START)/86400000)+1));}
+function curLevel(){var m=document.getElementById("tier").value;if(m==="all")return 9;if(m!=="auto")return +m;var d=sprintDay();return d>=22?3:d>=8?2:1;}
+function tagOf(w){return w.x.toUpperCase()+" · L"+levelOf(w);}
+function load(){try{var r=localStorage.getItem(LS);if(r)S=JSON.parse(r);}catch(e){}}
+function save(){try{localStorage.setItem(LS,JSON.stringify(S));}catch(e){}}
+function boxOf(w){return S.boxes[w]||{b:1,ts:0};}
+function due(w){var o=boxOf(w),iv=[0,1,2,4,8,16][o.b]||1;return(Date.now()-o.ts)>=iv*86400000;}
+function filtered(){var x=document.getElementById("exam").value,lv=curLevel();return WORDS.filter(function(w){return(x==="all"||w.x===x)&&levelOf(w)<=lv;});}
+function stats(){var f=filtered(),d=f.filter(due).length,l=f.filter(function(w){return boxOf(w).b>=4;}).length,cl=curLevel();document.getElementById("sDue").textContent=d;document.getElementById("sLearned").textContent=l;document.getElementById("sSeen").textContent=S.seen;document.getElementById("sStreak").textContent=S.streak;document.getElementById("sLevel").textContent=cl===9?"ALL":"L"+cl;document.getElementById("sDay").textContent="Day "+sprintDay();}
+function pick(){var f=filtered().slice();f.sort(function(a,b){return due(b)-due(a)||boxOf(a).b-boxOf(b).b;});queue=f.slice(0,10);next();}
+function next(){cur=queue.shift();phase=0;var c=document.getElementById("card");if(!cur){c.innerHTML='<div class="ex">Session complete. '+S.streak+' streak — see you tomorrow.</div>';stats();return;}
+ var m=document.getElementById("mode").value;
+ if(m==="flash"){c.innerHTML='<span class="tag">'+tagOf(cur)+'</span><div class="word">'+cur.w+'</div><div id="flip" class="ex">Tap to reveal</div><div class="row"><button class="gbtn again" data-g="1">Again</button><button class="gbtn good" data-g="3">Good</button><button class="gbtn easy" data-g="5">Easy</button></div>';c.querySelectorAll(".gbtn").forEach(function(b){b.style.visibility="hidden";b.onclick=function(){grade(+b.dataset.g);};});c.querySelector("#flip").onclick=function(){reveal();};}
+ else if(m==="quiz"){var pool=WORDS.filter(function(w){return w!==cur;}).sort(function(){return Math.random()-.5;}).slice(0,3);var opts=pool.concat([cur]).sort(function(){return Math.random()-.5;});c.innerHTML='<span class="tag">'+tagOf(cur)+'</span><div class="word">'+cur.w+'</div><div class="opts" id="opts"></div><div class="msg" id="msg"></div>';opts.forEach(function(o){var b=document.createElement("button");b.className="opt";b.textContent=o.m;b.onclick=function(){if(o.w===cur.w){b.classList.add("right");msg(true,cur.e);grade(4);}else{b.classList.add("wrong");msg(false,'Answer: '+cur.m);grade(1);}};document.getElementById("opts").appendChild(b);});}
+ else{c.innerHTML='<span class="tag">'+tagOf(cur)+'</span><div class="ex">'+cur.m+' — <i>'+cur.e.replace(new RegExp(cur.w,"i"),"_____")+'</i></div><input class="type" id="tin" placeholder="Type the word" autocomplete="off"><div class="row"><button class="btn pri" id="chk">Check</button></div><div class="msg" id="msg"></div>';var t=document.getElementById("tin");t.focus();t.addEventListener("keydown",function(ev){if(ev.key==="Enter")check();});document.getElementById("chk").onclick=check;}
+ stats();}
+function reveal(){var c=document.getElementById("card");c.querySelector("#flip").outerHTML='<div><div class="mean">'+cur.m+'</div><div class="ex">'+cur.e+'</div></div>';c.querySelectorAll(".gbtn").forEach(function(b){b.style.visibility="visible";});}
+function check(){var v=(document.getElementById("tin").value||"").trim().toLowerCase();if(v===cur.w){msg(true,cur.e);grade(4);}else{msg(false,"Correct spelling: "+cur.w);grade(1);}}
+function msg(ok,extra){var m=document.getElementById("msg");if(!m)return;m.className="msg "+(ok?"ok":"no");m.textContent=(ok?"Correct — ":"Not quite — ")+extra;}
+function grade(g){var o=boxOf(cur.w);o.b=Math.max(1,Math.min(5,o.b+g-2+(g===1?-o.b+1:0)));if(g===1)o.b=1;o.ts=Date.now();S.boxes[cur.w]=o;S.seen++;S.streak=g>1?S.streak+1:0;save();stats();setTimeout(next,900);}
+document.getElementById("start").onclick=pick;
+["exam","tier","mode"].forEach(function(id){document.getElementById(id).onchange=stats;});
+load();stats();
+</script>
+</body>
+</html>

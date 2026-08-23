@@ -1,6 +1,6 @@
 # Curated Resource Links
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Elfin | **Major:** Molecular Biology & Medicine | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 Pick tools, don't collect.
 

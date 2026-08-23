@@ -1,6 +1,6 @@
 # Final 72 Hours + Test Day Checklist
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Elfin | **Major:** Molecular Biology & Medicine | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 Real SAT: Sat Oct 3 (Day 41) — assigned Istanbul/Ankara center per ticket (verify). IELTS was Thu Oct 1, so Oct 2 is pure rest.
 

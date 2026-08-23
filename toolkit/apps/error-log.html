@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Error Log — IELTS + SAT</title>
+<style>
+:root{--a:#b0562f;--bg:#faf4ef;--c:#fff;--t:#241a14;--m:#83726a;--l:#ecdcd2;--ok:#2e7d32;--r:14px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#fff;color:var(--t);line-height:1.5}
+html[data-theme=dark] body{background:#171210}
+.wrap{max-width:900px;margin:0 auto;padding:22px 16px 60px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.logo{width:40px;height:40px;border-radius:12px 12px 5px 12px;background:linear-gradient(135deg,#b0562f,#e79b7f);color:#fff;display:grid;place-items:center;font-weight:800}
+h1{font-size:1.25rem;color:var(--a)}
+.sub{color:var(--m);font-size:.85rem;width:100%}
+.panel{background:var(--c);border:1px solid var(--l);border-radius:var(--r);padding:16px;box-shadow:0 1px 2px rgba(80,45,25,.08),0 10px 26px rgba(80,45,25,.10);margin-bottom:14px}
+.panel h2{font-size:.95rem;color:var(--a);margin-bottom:10px}
+.frow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:.74rem;font-weight:800;color:var(--m);letter-spacing:.04em;text-transform:uppercase}
+input,select,textarea{border:1px solid var(--l);border-radius:9px;padding:9px 11px;font-size:.92rem;font-family:inherit;background:var(--bg);color:var(--t)}
+input.n{width:110px}
+textarea{width:100%;min-height:56px;resize:vertical}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{border:1px solid var(--l);background:var(--bg);border-radius:999px;padding:6px 12px;font-size:.78rem;font-weight:700;cursor:pointer;user-select:none}
+.tag.on{background:var(--a);border-color:var(--a);color:#fff}
+.btn{border:none;background:var(--a);color:#fff;font-weight:800;border-radius:999px;padding:10px 22px;cursor:pointer;font-size:.9rem}
+.btn.ghost{background:transparent;border:1px solid var(--l);color:var(--t)}
+.accur{font-size:1.1rem;font-weight:800;color:var(--a)}
+table{width:100%;border-collapse:collapse;font-size:.85rem}
+th{text-align:left;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--m);padding:7px 8px}
+td{border-top:1px solid var(--l);padding:8px}
+td .t{display:inline-block;background:var(--bg);border:1px solid var(--l);border-radius:99px;padding:1px 8px;font-size:.7rem;font-weight:700;margin:1px 2px}
+td .del{color:#c2347a;cursor:pointer;font-weight:800;border:none;background:none;font-size:.85rem}
+.roll{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.roll .stat{background:var(--bg);border:1px solid var(--l);border-radius:11px;padding:10px;text-align:center}
+.stat b{display:block;font-size:1.15rem;color:var(--a)}
+.stat span{font-size:.68rem;color:var(--m);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+footer{color:var(--m);font-size:.75rem;text-align:center;margin-top:18px}
+@media print{.panel.nop,header .nop,td .del,.frow .nop{display:none!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <span class="logo">✓</span>
+ <h1>Daily Error Log</h1>
+ <button class="btn ghost nop" id="csv" style="margin-left:auto">Export CSV</button>
+ <button class="btn ghost nop" onclick="print()">Print</button>
+ <div class="sub">No entry = the session doesn't count. Counts + classification + reflection, every day, both exams.</div>
+</header>
+
+<div class="panel nop">
+ <h2>New entry</h2>
+ <div class="frow">
+  <label class="f">Date<input type="date" id="d"></label>
+  <label class="f">Exam<select id="x"><option>IELTS</option><option>SAT</option></select></label>
+  <label class="f">Set level<select id="lvl"><option>L1</option><option>L2</option><option>L3</option><option>L4</option></select></label>
+  <label class="f">Task / set<input id="task" placeholder="e.g., Cambridge 17 T3 Reading" style="width:240px"></label>
+  <label class="f">Attempted<input class="n" id="att" type="number" min="0"></label>
+  <label class="f">Correct<input class="n" id="cor" type="number" min="0"></label>
+  <label class="f">Accuracy<span class="accur" id="acc">—</span></label>
+ </div>
+ <label class="f">Error types</label>
+ <div class="tags" id="tags"></div>
+ <div class="frow" style="margin-top:10px">
+  <label class="f" style="flex:1">What challenged me most, and why<textarea id="r1" placeholder="Be specific enough that a tutor could diagnose your day from this."></textarea></label>
+ </div>
+ <div class="frow">
+  <label class="f" style="flex:1">Pattern across today's misses<textarea id="r2"></textarea></label>
+  <label class="f" style="flex:1">ONE change for tomorrow<textarea id="r3"></textarea></label>
+ </div>
+ <button class="btn" id="save">Save entry</button> <span id="warn" style="color:#c2347a;font-weight:700;font-size:.85rem"></span>
+</div>
+
+<div class="panel">
+ <h2>Entries</h2>
+ <table><thead><tr><th>Date</th><th>Exam</th><th>Lvl</th><th>Task</th><th>A/C/I</th><th>Acc %</th><th>Error types</th><th>One change</th><th class="nop"></th></tr></thead><tbody id="rows"></tbody></table>
+</div>
+
+<div class="panel">
+ <h2>Weekly rollup (last 7 days)</h2>
+ <div class="roll" id="roll"></div>
+</div>
+</div>
+<script>
+"use strict";
+var LS="toolkit_errorlog_v1",TAGS=["concept","algebra-slip","careless","timing","paraphrase","trap-choice","vocabulary","format","Desmos-misuse"],E=[],picked={};
+function load(){try{var r=localStorage.getItem(LS);if(r)E=JSON.parse(r);}catch(e){}}
+function save(){try{localStorage.setItem(LS,JSON.stringify(E));}catch(e){}}
+function init(){var d=new Date();document.getElementById("d").value=d.toISOString().slice(0,10);
+ var tc=document.getElementById("tags");TAGS.forEach(function(t){var b=document.createElement("span");b.className="tag";b.textContent=t;b.onclick=function(){picked[t]=!picked[t];this.classList.toggle("on",!!picked[t]);};tc.appendChild(b);});
+ document.getElementById("att").addEventListener("input",acc);document.getElementById("cor").addEventListener("input",acc);render();}
+function acc(){var a=+document.getElementById("att").value||0,c=+document.getElementById("cor").value||0;document.getElementById("acc").textContent=a?Math.round(c/a*100)+"%":"—";}
+document.getElementById("save").onclick=function(){var a=+document.getElementById("att").value||0,c=+document.getElementById("cor").value||0,w=document.getElementById("warn");
+ if(!a||c>a){w.textContent=a?"Correct cannot exceed attempted.":"Enter attempted count.";return;}
+ w.textContent="";
+ var tags=TAGS.filter(function(t){return picked[t];});
+ E.unshift({d:document.getElementById("d").value,x:document.getElementById("x").value,lvl:document.getElementById("lvl").value,t:document.getElementById("task").value,a:a,c:c,tags:tags,r1:document.getElementById("r1").value,r2:document.getElementById("r2").value,r3:document.getElementById("r3").value});
+ save();["task","r1","r2","r3"].forEach(function(id){document.getElementById(id).value="";});document.getElementById("att").value="";document.getElementById("cor").value="";picked={};document.querySelectorAll(".tag.on").forEach(function(b){b.classList.remove("on");});acc();render();};
+function render(){var tb=document.getElementById("rows");tb.innerHTML="";
+ E.forEach(function(e,i){var tr=document.createElement("tr");
+  tr.innerHTML="<td>"+e.d+"</td><td>"+e.x+"</td><td>"+(e.lvl||"—")+"</td><td>"+esc(e.t)+"</td><td>"+e.a+" / "+e.c+" / "+(e.a-e.c)+"</td><td>"+(e.a?Math.round(e.c/e.a*100):"—")+"%</td><td>"+e.tags.map(function(t){return"<span class='t'>"+t+"</span>";}).join("")+"</td><td>"+esc(e.r3)+"</td><td class='nop'><button class='del' data-i='"+i+"'>×</button></td>";
+  tb.appendChild(tr);});
+ tb.querySelectorAll(".del").forEach(function(b){b.onclick=function(){E.splice(+b.dataset.i,1);save();render();};});
+ var cut=new Date(Date.now()-7*86400000).toISOString().slice(0,10),roll={IELTS:[0,0,0],SAT:[0,0,0]},themes={};
+ E.forEach(function(e){if(e.d<cut)return;var r=roll[e.x]||null;if(r){r[0]+=e.a;r[1]+=e.c;r[2]++;}e.tags.forEach(function(t){themes[t]=(themes[t]||0)+1;});});
+ var rc=document.getElementById("roll");rc.innerHTML="";
+ ["IELTS","SAT"].forEach(function(x){var r=roll[x],div=document.createElement("div");div.className="stat";div.innerHTML="<b>"+(r[0]?Math.round(r[1]/r[0]*100)+"%":"—")+"</b><span>"+x+" · "+r[2]+" sets · "+r[1]+"/"+r[0]+"</span>";rc.appendChild(div);});
+ var top=Object.keys(themes).sort(function(a,b){return themes[b]-themes[a];}).slice(0,3),dv=document.createElement("div");dv.className="stat";dv.innerHTML="<b>"+(top.length?top.join(", "):"—")+"</b><span>Top error types</span>";rc.appendChild(dv);}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+document.getElementById("csv").onclick=function(){var rows=[["date","exam","level","task","attempted","correct","incorrect","accuracy","tags","challenge","pattern","oneChange"]].concat(E.map(function(e){return[e.d,e.x,e.lvl||"",e.t,e.a,e.c,e.a-e.c,(e.a?Math.round(e.c/e.a*100):"")+ "%",e.tags.join("|"),e.r1,e.r2,e.r3];}));
+ var csv=rows.map(function(r){return r.map(function(v){return'"'+String(v).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
+ var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="error-log.csv";a.click();};
+load();init();render();
+</script>
+</body>
+</html>

@@ -1,6 +1,6 @@
 # SAT Math: 20 High-Yield Topics
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Elfin | **Major:** Molecular Biology & Medicine | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 One section per topic: Concept, Worked example, Trap, Practice (3 Q, answers in bold). Schedule per sat/daily-plan.md; log misses in weak-area-tracker.md using exact names.
 

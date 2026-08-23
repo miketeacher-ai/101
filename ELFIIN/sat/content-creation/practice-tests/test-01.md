@@ -1,6 +1,6 @@
 # Practice Test 01 (Condensed Simulation)
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Elfin | **Major:** Molecular Biology & Medicine | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 Condensed ~40%-scale simulation: 40 questions, 55 minutes. FREE official full-length tests live in Bluebook/Khan Academy.
 

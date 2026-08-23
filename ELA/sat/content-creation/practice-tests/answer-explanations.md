@@ -1,6 +1,6 @@
 # Answer Explanations - Tests 01-04
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Ela | **Major:** Economics & Finance | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 One to two lines per item. Read only after scoring. Log every miss in weak-area-tracker.md.
 

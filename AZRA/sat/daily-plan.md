@@ -44,7 +44,7 @@
 | 26 | Sep 18 Fri | Math: Polynomials & Factoring | AM: #11 — special products, factor theorem. PM: Timed 10 factoring | Remainder when ÷ (x-2) = plug x=2 — instant |
 | 27 | Sep 19 Sat | Grammar Rules 1-7 | AM: writing-grammar.md #1-7 (agreement, pronouns, tense, parallelism, modifiers, commas, semicolons). PM: Drill 15 grammar Q | Grammar is pattern recognition — strip prepositional phrases to find subject |
 | 28 | Sep 20 Sun | Grammar Rules 8-12 | AM: #8-12 (colons, dashes, apostrophes, boundaries, transitions). PM: Timed 15 grammar + synthesis | Semicolon = both sides complete sentences — deletable test |
-| 29 | Sep 21 Mon | Math: Exponents & Radicals | AM: #12 — rules, negative = reciprocal, sqrt(a²)=|a|. PM: Timed 10 | Never add exponents across addition — only multiplication |
+| 29 | Sep 21 Mon | Math: Exponents & Radicals | AM: #12 — rules, negative = reciprocal, sqrt(a²) = abs(a). PM: Timed 10 | Never add exponents across addition — only multiplication |
 | 30 | Sep 22 Tue | Grammar Rules 13-17 | AM: #13-17 (redundancy, comparison, diction, possessives, relative pronouns). PM: Drill 15 | Shortest correct answer often wins — SAT rewards concision |
 | 31 | Sep 23 Wed | Math: Exponential Growth/Decay | AM: #13 — y=a(1±r)^t, doubling. PM: Timed 8 growth/decay | "Increases by 50 each year" vs "by 5% each year" — linear vs exponential keywords |
 | 32 | Sep 24 Thu | Grammar Rules 18-20 + Mixed | AM: #18-20 (synthesis, organization). PM: Mixed 15 grammar + synthesis timed | Synthesis: bullet notes are law — don't add outside knowledge |

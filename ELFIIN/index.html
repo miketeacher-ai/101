@@ -5,21 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Elfin — 45-Day Sprint</title>
 <style>
-:root{--a:#0f766e;--a2:#2dd4bf;--grad:linear-gradient(135deg,#0f766e,#2dd4bf);--bg:#f1faf9;--c:#fff;--t:#112421;--m:#5f7c76;--l:#d6ebe8;--ok:#2e7d32;--w:#ef8f00;--bad:#c62828;--r:18px;--sh:0 1px 2px rgba(17,36,33,.06),0 8px 24px rgba(17,36,33,.05)}
-[data-theme=dark]{--bg:#181e1e;--c:#222e2e;--t:#dde8e2;--m:#9fb3b0;--l:#2e3d3e;--a:#8abbb3;--a2:#6d9e96;--grad:linear-gradient(135deg,#9acfc6,#7ab8ad);--sh:0 1px 3px rgba(0,0,0,.25),0 8px 20px rgba(0,0,0,.2);--ok:#8a9a7b;--w:#c2a87a;--bad:#c28a8a}
+:root{--a:#0f766e;--a2:#2dd4bf;--grad:linear-gradient(135deg,#0f766e,#2dd4bf);--bg:#e7f4f1;--c:#fff;--t:#112421;--m:#5f7c76;--l:#cbe5e0;--cb:#bfe0d9;--ok:#2e7d32;--w:#ef8f00;--bad:#c62828;--r:18px;--sh:0 1px 2px rgba(15,118,110,.10),0 10px 26px rgba(15,118,110,.14)}
+[data-theme=dark]{--bg:#131920;--c:#1d262e;--t:#dfe7ec;--m:#9baab4;--l:#2e3a43;--a:#92bac6;--a2:#71a1ad;--grad:linear-gradient(135deg,#9ac3ce,#77a8b4);--sh:0 1px 3px rgba(0,0,0,.3),0 10px 26px rgba(0,0,0,.22);--ok:#96a784;--w:#cfb287;--bad:#cf9591}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t);font-size:15.5px;line-height:1.5}
+html{scroll-behavior:smooth;scrollbar-width:thin;scrollbar-color:var(--l) transparent}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#fff;color:var(--t);font-size:15.5px;line-height:1.5}
+html[data-theme=dark] body{background:var(--bg)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 :focus-visible{outline:3px solid var(--a);outline-offset:2px;border-radius:6px}
 .skip{position:absolute;left:-999px;background:var(--a);color:#fff;padding:8px 14px;z-index:99;border-radius:0 0 8px 0}
 .skip:focus{left:0;top:0}
 .app{display:grid;grid-template-columns:236px minmax(0,1fr)}
 .col{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:14px;padding:20px 16px;background:var(--c);border-right:1px solid var(--l)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800}
-.logo{width:38px;height:38px;border-radius:11px;background:var(--grad);color:#fff;display:grid;place-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--a)}
+.logo{width:38px;height:38px;border-radius:12px 12px 5px 12px;background:var(--grad);color:#fff;display:grid;place-items:center}
 .brand small{display:block;font-weight:600;color:var(--m);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase}
-.dc{background:var(--bg);border:1px solid var(--l);border-radius:13px;padding:12px 14px;text-align:center}
+.dc{background:var(--bg);border:1px solid var(--cb,var(--l));border-radius:16px 16px 6px 16px;padding:12px 14px;text-align:center}
 .dc b{font-size:1.5rem;color:var(--a)}
 .dc span{display:block;font-size:.72rem;color:var(--m);letter-spacing:.04em}
 .hr{height:6px;border-radius:99px;background:var(--l);overflow:hidden;margin-top:8px}
@@ -43,20 +44,21 @@ body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background
  .tg{display:flex;gap:6px}
  .tabbar{position:fixed;bottom:0;left:0;right:0;z-index:60;display:flex;background:var(--c);border-top:1px solid var(--l);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
  .tabbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;font-size:.66rem;font-weight:700;color:var(--m);text-decoration:none;border-radius:10px}
- .tabbar a.active{color:var(--a)}
+ .tabbar a.active{color:var(--a);background:var(--bg)}
  main{padding:18px 14px calc(84px + env(safe-area-inset-bottom))}
 }
-main{padding:26px clamp(16px,3.5vw,44px);max-width:1120px}
-.sec{margin-bottom:52px;scroll-margin-top:76px}
-.sh{display:flex;align-items:center;gap:14px;margin-bottom:16px;flex-wrap:wrap}
-.ico{width:44px;height:44px;border-radius:13px;background:var(--grad);display:grid;place-items:center;flex:none}
+main{padding:28px clamp(16px,3.5vw,48px);max-width:1160px;margin:0 auto}
+.sec{margin-bottom:56px;scroll-margin-top:88px}
+.sh{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;position:relative;padding-bottom:12px}
+.sh::after{content:"";position:absolute;left:0;bottom:0;width:64px;height:3px;border-radius:99px;background:var(--grad)}
+.ico{width:44px;height:44px;border-radius:14px 14px 5px 14px;background:var(--grad);display:grid;place-items:center;flex:none}
 .ico svg{stroke:#fff}
-.sh h2{font-size:clamp(1.25rem,2.4vw,1.55rem)}
+.sh h2{font-size:clamp(1.25rem,2.4vw,1.55rem);letter-spacing:-.01em;color:var(--a)}
 .sh .sub{color:var(--m);font-size:.86rem}
 .pill{margin-left:auto;background:var(--c);border:1px solid var(--l);border-radius:999px;padding:6px 14px;font-weight:800;color:var(--a);font-size:.9rem;box-shadow:var(--sh)}
-.card{background:var(--c);border:1px solid var(--l);border-radius:var(--r);padding:16px;box-shadow:var(--sh)}
-.card h3{font-size:1rem;margin-bottom:10px}
-.hero{display:grid;grid-template-columns:minmax(260px,1.1fr) minmax(300px,1fr);gap:14px}
+.card{background:var(--c);border:1px solid var(--cb,var(--l));border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+.card h3{font-size:1rem;margin-bottom:10px;color:var(--a)}
+.hero{display:grid;grid-template-columns:minmax(260px,1.1fr) minmax(300px,1fr);gap:16px}
 @media(max-width:860px){.hero{grid-template-columns:1fr}}
 .grad{background:var(--grad);border:none;color:#fff}
 .grad .big{font-size:clamp(2rem,5vw,2.9rem);font-weight:800;line-height:1}
@@ -66,7 +68,7 @@ main{padding:26px clamp(16px,3.5vw,44px);max-width:1120px}
 .rb svg{transform:rotate(-90deg)}
 .rb .lb{font-weight:800;margin-top:-46px;position:relative}
 .rb small{display:block;color:var(--m);font-weight:600;margin-top:22px;font-size:.78rem}
-.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:16px}
 .tc .tag{font-size:.68rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--a)}
 .tc p{margin-top:6px;font-weight:700}
 .tc label{display:flex;gap:8px;align-items:flex-start;margin-top:8px;font-size:.88rem;cursor:pointer}
@@ -132,13 +134,15 @@ canvas#chart{width:100%;height:230px;background:var(--bg);border:1px solid var(-
 table.p{width:100%;border-collapse:collapse;font-size:.87rem}
 table.p th{text-align:left;font-size:.72rem;letter-spacing:.07em;text-transform:uppercase;color:var(--m);padding:8px}
 table.p td{border-top:1px solid var(--l);padding:9px;vertical-align:middle}
-.ctg{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:12px}
+table.p tbody tr{transition:background .15s}
+table.p tbody tr:hover td{background:rgba(136,136,136,.07)}
+.ctg{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:14px}
 .ctg textarea{width:100%;min-height:74px;border-radius:11px;border:1px solid var(--l);background:var(--bg);padding:9px;resize:vertical}
 .wb{height:5px;border-radius:99px;background:var(--l);overflow:hidden;margin-top:6px}
 .wb>span{display:block;height:100%;width:0;background:var(--grad)}
 .wc{display:flex;justify-content:space-between;font-size:.73rem;color:var(--m);margin-top:4px}
 .wc.over{color:var(--bad);font-weight:700}
-.cds{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.cds{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
 .cd{text-align:center}
 .cd .nm{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--m)}
 .cd b{display:block;font-size:1.15rem;color:var(--a);font-variant-numeric:tabular-nums;margin-top:4px}
@@ -281,10 +285,10 @@ function wire(){document.body.addEventListener("change",function(e){var c=e.targ
 var TMR={left:0,int:null};function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");}
 function startT(){if(TMR.int){clearInterval(TMR.int);TMR.int=null;return;}if(TMR.left<=0)return;TMR.int=setInterval(function(){TMR.left--;document.getElementById("tface").textContent=fmt(TMR.left);if(TMR.left<=0){clearInterval(TMR.int);TMR.int=null;try{document.title="TIMER DONE - Elfin";}catch(e){}};},1000);}
 function draw(){var cv=document.getElementById("chart"),ctx=cv.getContext("2d"),W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);function Y(v){return H-26-(v-800)/(1600-800)*(H-58);}ctx.font="11px system-ui";[[1500,"spec"],[1450,"stretch"],[1350,"target"]].forEach(function(r){ctx.strokeStyle="#9a8b80";ctx.setLineDash([5,4]);ctx.beginPath();ctx.moveTo(46,Y(r[0]));ctx.lineTo(W-8,Y(r[0]));ctx.stroke();ctx.setLineDash([]);ctx.fillStyle="#9a8b80";ctx.fillText(r[0]+" "+r[1],6,Y(r[0])+3);});ctx.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue("--a").trim()||"#0f766e";ctx.lineWidth=2.5;ctx.lineJoin="round";ctx.beginPath();var st=false;S.scores.forEach(function(v,i){if(v==null)return;var x=90+i*((W-140)/3);if(!st){ctx.moveTo(x,Y(v));st=true;}else ctx.lineTo(x,Y(v));});ctx.stroke();S.scores.forEach(function(v,i){if(v==null)return;var x=90+i*((W-140)/3),y=Y(v);ctx.fillStyle=ctx.strokeStyle;ctx.beginPath();ctx.arc(x,y,5,0,7);ctx.fill();ctx.fillStyle="#9a8b80";ctx.fillText("PT"+(i+1),x-9,H-8);});}
-var TR={sT:"45 Gunlik Sprint",all:"Genel",today:"BUGUN",md:"Tamamla",drill:"Calisma zamani",start:"Baslat",reset:"Sifirla",plot:"Puani ciz",cheat:"Formul + dilbilgisi kagit",port:"Portfoy",p1:"Arastirma Sprinti (hes. biyoloji)",p2:"Klinik + Toplum Saglik Gunu",p3:"Denemeler + Basvurular",deliv:"Cikti takibi",counters:"Kelime sayaclar",deadH:"Son teslimler",acheck:"Basvuru kontrol listesi",reach:"Zor",match:"Uygun",safe:"Guvenli",school:"Okul",tier:"Seviye",status:"Durum",close:"Kapat"};
-function aLang(lg){S.lang=lg;save();document.documentElement.lang=lg==="tr"?"tr":"en";document.querySelectorAll("[data-i18n]").forEach(function(n){var k=n.getAttribute("data-i18n");if(lg==="tr"&&TR[k])n.textContent=TR[k];});document.getElementById("lgB").textContent=lg==="tr"?"EN":"TR";document.getElementById("lgBM").textContent=lg==="tr"?"EN":"TR";}
+var TR={sT:"45 Gunlik Sprint",all:"Genel",today:"BUGUN",md:"Tamamla",drill:"Calisma zamani",start:"Baslat",reset:"Sifirla",plot:"Puani ciz",cheat:"Formul + dilbilgisi kagit",port:"Portfoy",portH:"Portfoy",p1:"Arastirma Sprinti (hes. biyoloji)",p2:"Klinik + Toplum Saglik Gunu",p3:"Denemeler + Basvurular",deliv:"Cikti takibi",counters:"Kelime sayaclar",deadH:"Son teslimler",acheck:"Basvuru kontrol listesi",reach:"Zor",match:"Uygun",safe:"Guvenli",school:"Okul",tier:"Seviye",status:"Durum",close:"Kapat"};
+function aLang(lg){S.lang=lg;save();document.documentElement.lang=lg==="tr"?"tr":"en";document.querySelectorAll("[data-i18n]").forEach(function(n){var k=n.getAttribute("data-i18n");if(lg==="tr"&&TR[k]){if(!n.dataset.en)n.dataset.en=n.textContent;n.textContent=TR[k];}else if(n.dataset.en){n.textContent=n.dataset.en;}});document.getElementById("lgB").textContent=lg==="tr"?"EN":"TR";document.getElementById("lgBM").textContent=lg==="tr"?"EN":"TR";}
 function aTheme(){var t=S.theme||(window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",t);}
-function init(){load();aTheme();bTasks();bMas();bPort();bAl();bAC();bCtrs();bUni(S.ui.uni);wWeek();bToday();wire();document.querySelectorAll("#wSeg button").forEach(function(b){b.addEventListener("click",function(){S.ui.week=this.dataset.w;save();wWeek();});});document.querySelectorAll("#phTabs button").forEach(function(b){b.addEventListener("click",function(){S.ui.phase=+this.dataset.p;save();document.querySelectorAll("#phTabs button").forEach(function(x){x.setAttribute("aria-selected",String(+x.dataset.p===S.ui.phase));x.setAttribute("aria-pressed",String(+x.dataset.p===S.ui.phase));});document.querySelectorAll(".tp").forEach(function(p){p.style.display=(+p.dataset.tp===S.ui.phase)?"":"none";});});});document.querySelectorAll("#uSeg button").forEach(function(b){b.addEventListener("click",function(){S.ui.uni=this.dataset.f;save();bUni(this.dataset.f);});});function tgl(){var c=document.documentElement.getAttribute("data-theme");S.theme=c==="dark"?"light":"dark";save();aTheme();draw();}document.getElementById("thB").addEventListener("click",tgl);document.getElementById("thBM").addEventListener("click",tgl);document.getElementById("lgB").addEventListener("click",function(){aLang(S.lang==="en"?"tr":"en");});document.getElementById("lgBM").addEventListener("click",function(){aLang(S.lang==="en"?"tr":"en");});document.querySelectorAll(".timer [data-min]").forEach(function(b){b.addEventListener("click",function(){TMR.left=(+this.dataset.min)*60;document.getElementById("tface").textContent=fmt(TMR.left);});});document.getElementById("tstart").addEventListener("click",startT);document.getElementById("treset").addEventListener("click",function(){clearInterval(TMR.int);TMR.int=null;TMR.left=0;document.getElementById("tface").textContent="00:00";});document.getElementById("plotBtn").addEventListener("click",function(){document.querySelectorAll("[data-sc]").forEach(function(inp){var i=+inp.dataset.sc,v=inp.value;S.scores[i]=v?+v:null;});save();draw();refresh();});document.getElementById("chB").addEventListener("click",function(){document.getElementById("cheat").showModal();});[0,1,2,3].forEach(function(i){var inp=document.querySelector('[data-sc="'+i+'"]');if(inp&&S.scores[i]!=null)inp.value=S.scores[i];});setInterval(function(){var tg=[[2026,9,1,"IELTS EXAM","Thu Oct 1"],[2026,9,3,"REAL SAT","Sat Oct 3"],[2026,10,1,"ED / EA","Nov 1"],[2027,0,1,"RD","Jan 1"]],h="";tg.forEach(function(t){var ms=Math.max(0,new Date(t[0],t[1],t[2])-new Date()),dd=Math.floor(ms/86400000),hh=Math.floor(ms%86400000/3600000),mm=Math.floor(ms%3600000/60000),ss=Math.floor(ms%60000/1000);h+='<div class="cd card"><div class="nm">'+t[2]+"</div><b>"+dd+"d "+String(hh).padStart(2,"0")+"h "+String(mm).padStart(2,"0")+"m "+String(ss).padStart(2,"0")+"s</b><div class='dt'>"+t[3]+"</div></div>";});document.getElementById("cds").innerHTML=h;var nx=null,best=Infinity;tg.forEach(function(t){var m=new Date(t[0],t[1],t[2])-new Date();if(m>0&&m<best){best=m;nx=t;}});document.getElementById("nStrip").innerHTML=nx?("Next milestone: <b>"+nx[2]+"</b> - "+nx[3]+" - "+Math.ceil(best/86400000)+" days left"):"All milestones passed.";},1000);try{if("IntersectionObserver" in window){var links=document.querySelectorAll(".nav a,.tabbar a");var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)links.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+en.target.id);});});},{rootMargin:"-80px 0px -55% 0px"});["sprint","ielts","sat","folio","deads"].forEach(function(id){io.observe(document.getElementById(id));});}}catch(e){}window.addEventListener("beforeprint",function(){document.querySelectorAll(".tp").forEach(function(p){p.style.display="";});wWeek();});updCh();refresh();draw();aLang(S.lang||"en");}
+function init(){load();aTheme();bTasks();bMas();bPort();bAl();bAC();bCtrs();bUni(S.ui.uni);wWeek();bToday();wire();document.querySelectorAll("#wSeg button").forEach(function(b){b.addEventListener("click",function(){S.ui.week=this.dataset.w;save();wWeek();});});document.querySelectorAll("#phTabs button").forEach(function(b){b.addEventListener("click",function(){S.ui.phase=+this.dataset.p;save();document.querySelectorAll("#phTabs button").forEach(function(x){x.setAttribute("aria-selected",String(+x.dataset.p===S.ui.phase));x.setAttribute("aria-pressed",String(+x.dataset.p===S.ui.phase));});document.querySelectorAll(".tp").forEach(function(p){p.style.display=(+p.dataset.tp===S.ui.phase)?"":"none";});});});document.querySelectorAll("#uSeg button").forEach(function(b){b.addEventListener("click",function(){S.ui.uni=this.dataset.f;save();bUni(this.dataset.f);});});function tgl(){var c=document.documentElement.getAttribute("data-theme");S.theme=c==="dark"?"light":"dark";save();aTheme();draw();}document.getElementById("thB").addEventListener("click",tgl);document.getElementById("thBM").addEventListener("click",tgl);document.getElementById("lgB").addEventListener("click",function(){aLang(S.lang==="en"?"tr":"en");});document.getElementById("lgBM").addEventListener("click",function(){aLang(S.lang==="en"?"tr":"en");});document.querySelectorAll(".timer [data-min]").forEach(function(b){b.addEventListener("click",function(){TMR.left=(+this.dataset.min)*60;document.getElementById("tface").textContent=fmt(TMR.left);});});document.getElementById("tstart").addEventListener("click",startT);document.getElementById("treset").addEventListener("click",function(){clearInterval(TMR.int);TMR.int=null;TMR.left=0;document.getElementById("tface").textContent="00:00";});document.getElementById("plotBtn").addEventListener("click",function(){document.querySelectorAll("[data-sc]").forEach(function(inp){var i=+inp.dataset.sc,v=inp.value;S.scores[i]=v?+v:null;});save();draw();refresh();});document.getElementById("chB").addEventListener("click",function(){document.getElementById("cheat").showModal();});[0,1,2,3].forEach(function(i){var inp=document.querySelector('[data-sc="'+i+'"]');if(inp&&S.scores[i]!=null)inp.value=S.scores[i];});setInterval(function(){var tg=[[2026,9,1,"IELTS EXAM","Thu Oct 1"],[2026,9,3,"REAL SAT","Sat Oct 3"],[2026,10,1,"ED / EA","Nov 1"],[2027,0,1,"RD","Jan 1"]],h="";tg.forEach(function(t){var ms=Math.max(0,new Date(t[0],t[1],t[2])-new Date()),dd=Math.floor(ms/86400000),hh=Math.floor(ms%86400000/3600000),mm=Math.floor(ms%3600000/60000),ss=Math.floor(ms%60000/1000);h+='<div class="cd card"><div class="nm">'+t[2]+"</div><b>"+dd+"d "+String(hh).padStart(2,"0")+"h "+String(mm).padStart(2,"0")+"m "+String(ss).padStart(2,"0")+"s</b><div class='dt'>"+t[3]+"</div></div>";});document.getElementById("cds").innerHTML=h;var nx=null,best=Infinity;tg.forEach(function(t){var m=new Date(t[0],t[1],t[2])-new Date();if(m>0&&m<best){best=m;nx=t;}});document.getElementById("nStrip").innerHTML=nx?("Next milestone: <b>"+nx[2]+"</b> - "+nx[3]+" - "+Math.ceil(best/86400000)+" days left"):"All milestones passed.";},1000);try{if("IntersectionObserver" in window){var links=document.querySelectorAll(".nav a,.tabbar a");var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting)links.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+en.target.id);});});},{rootMargin:"-80px 0px -55% 0px"});["sprint","ielts","sat","folio","deads"].forEach(function(id){io.observe(document.getElementById(id));});}}catch(e){}window.addEventListener("beforeprint",function(){document.querySelectorAll(".tp").forEach(function(p){p.style.display="";});wWeek();});window.addEventListener("afterprint",function(){document.querySelectorAll(".tp").forEach(function(p){p.style.display=(+p.dataset.tp===S.ui.phase)?"":"none";});});updCh();refresh();draw();aLang(S.lang||"en");}
 init();
 </script>
 </body>

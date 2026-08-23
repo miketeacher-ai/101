@@ -9,9 +9,9 @@ import re
 from pathlib import Path
 
 STUDENTS = {
-    "AZRA": {"band_now": "5.0", "band_target": "6.5", "sat_now": 0, "sat_target": 1250},
-    "ELA": {"band_now": "5.5", "band_target": "6.5", "sat_now": 0, "sat_target": 1300},
-    "ELFIIN": {"band_now": "6.5", "band_target": "7.5", "sat_now": 0, "sat_target": 1350},
+    "AZRA": {"band_now": "5.0", "band_target": "6.5", "sat_now": 0, "sat_target": 1300},
+    "ELA": {"band_now": "5.5", "band_target": "6.5", "sat_now": 0, "sat_target": 1400},
+    "ELFIIN": {"band_now": "6.5", "band_target": "7.5", "sat_now": 0, "sat_target": 1450},
 }
 
 def parse_tracker(path: Path):
@@ -19,13 +19,18 @@ def parse_tracker(path: Path):
     try:
         text = path.read_text(encoding="utf-8", errors="ignore")
         for line in text.splitlines():
-            if "| R |" in line or "|R|" in line or " R " in line:
-                # Extract topic name between | |
-                parts = [p.strip() for p in line.split("|")]
-                if len(parts) >= 3:
-                    topic = parts[1] or parts[2]
-                    if topic and topic not in ("Topic", "Domain", "#", ""):
+            cells = [p.strip() for p in line.strip().strip("|").split("|")]
+            if len(cells) < 3:
+                continue
+            # Status cell = R / Y / G; topic = cell immediately before it
+            for i, c in enumerate(cells):
+                if c.upper() in ("R", "Y", "G") and i >= 1:
+                    topic = cells[i - 1]
+                    if c.upper() == "R" and topic and topic.strip("-_ ") \
+                            and not topic.replace(".", "").isdigit() \
+                            and topic.lower() not in ("topic", "domain", "#", "status", "skill"):
                         reds.append(topic)
+                    break
     except FileNotFoundError:
         pass
     return reds

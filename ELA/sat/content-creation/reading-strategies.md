@@ -1,6 +1,6 @@
 # Reading & Writing Strategies (Digital SAT)
 
-**Student:** Azra | **Major:** Architecture | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
+**Student:** Ela | **Major:** Economics & Finance | **Sprint:** Day 1 Mon Aug 24 - Day 45 Wed Oct 7, 2026
 
 Digital SAT RW: two adaptive modules, short passages 25-150 words, one Q each, ~75 sec/Q.
 
